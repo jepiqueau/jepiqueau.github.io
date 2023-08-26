@@ -1,7 +1,8 @@
 
 # Ionic 7 SQLite Database CRUD App Example Tutorial using Angular and @capacitor-community/sqlite
 ---
-last updated on August 26, 2023 by Quéau Jean Pierre
+
+*last updated on August 26, 2023 by Quéau Jean Pierre*
 
 In that tutorial we will learned how to create a Ionic7/Angular basic CRUD application and implement the @capacitor-community/sqlite plugin to store the data in a SQLite database.
 
@@ -11,6 +12,7 @@ Thanks to the Ionic Team and their hard work to bring CAPACITOR 5, the second pa
 
 ## Part 1 - Web - Table of Contents
 
+---
  - [Install New Ionic Application](#install-new-ionic-application)
  - [Install Required Packages](#install-required-packages)
  - [Create the SQLite Database](#create-the-sqlite-database)
@@ -20,6 +22,7 @@ Thanks to the Ionic Team and their hard work to bring CAPACITOR 5, the second pa
  - [Update Config and Package.json Scripts](#update-config-and-packagejson-scripts)
  - [Run the Web SQLite App](#run-the-web-sqlite-app)
  - [Part 1 Conclusion](#part-1-conclusion)
+---
 
 ### Install New Ionic Application
 

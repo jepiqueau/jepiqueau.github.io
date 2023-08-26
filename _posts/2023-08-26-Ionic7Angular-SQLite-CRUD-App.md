@@ -631,7 +631,7 @@ Thanks to the Ionic Team and their hard work to bring CAPACITOR 5, the second pa
 
 This will bring you to the `Managing Users` page
 
-<div align="center"><br><img src="/images/ionic7-Angular-SQLite-Managing-Users.png" width="250" /></div>
+<div align="center"><br><img src="/images/ionic7-Angular-SQLite-Managing-Users.png" width="250" /></div><br>
 
 On the screen-copy, ones has entered already some users.
  - To input new users
@@ -644,7 +644,7 @@ On the screen-copy, ones has entered already some users.
 
 The database location can be see in the application tab of the development tools.
 
-<div align="center"><br><img src="/images/Ionic7-Angular-SQLite-Database-Location.png" width="80%" /></div>
+<div align="center"><br><img src="/images/Ionic7-Angular-SQLite-Database-Location.png" width="80%" /></div><br>
 
 
 ### Part 1 Conclusion

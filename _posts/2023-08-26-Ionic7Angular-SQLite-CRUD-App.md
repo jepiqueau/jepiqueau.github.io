@@ -25,6 +25,7 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
  - [Update Config and Package.json Scripts](#update-config-and-packagejson-scripts)
  - [Run the Web SQLite App](#run-the-web-sqlite-app)
  - [Part 1 Conclusion](#part-1-conclusion)
+ 
 ---
 
 ### Install New Ionic Application
@@ -670,8 +671,10 @@ Enjoy your development from there.
  - [Install Native Required Packages](#install-native-required-packages)
  - [Update Config file](#update-config-file)
  - [Update Package.json Scripts](#update-packagejson-scripts)
- - [Run the iOS App]
+ - [Run the iOS App](#run-the-ios-app)
+ - [Run the Android App](#run-the-android-app)
  - [Part 2 Conclusion](#part-1-conclusion)
+
 ---
 
 ### Install Native Required Packages

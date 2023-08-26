@@ -859,4 +859,13 @@ The `capacitor.config.ts` file specifies parameters that the plugin needs, such 
 
  <div align="center"><br><img src="/images/Part2-Electron-Ionic7-Angular-SQLite-Managing-Users.png" width="50%" /></div><br>
 
+### Part 2 Conclusion
+
+We have completed the Part 2 - Native and Electron applications of the Ionic 7 SQLite Database CRUD App Example Tutorial using Angular and @capacitor-community/sqlite.
+
+We have learned to adapt the `capacitor.config.ts`file and the modify the scripts: section of the `package.json`file for native apps
+
+We learned how to build and run the application for each native platforms.
+
+Enjoy your development from there.
 

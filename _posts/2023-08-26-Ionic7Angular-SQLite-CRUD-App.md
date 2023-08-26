@@ -673,6 +673,7 @@ Enjoy your development from there.
  - [Update Package.json Scripts](#update-packagejson-scripts)
  - [Run the iOS App](#run-the-ios-app)
  - [Run the Android App](#run-the-android-app)
+ - [Run the Electron App](#run-the-electron-app)
  - [Part 2 Conclusion](#part-1-conclusion)
 
 ---
@@ -799,5 +800,63 @@ The `capacitor.config.ts` file specifies parameters that the plugin needs, such 
  
  <div align="center"><br><img src="/images/Part2-Android-Ionic7-Angular-SQLite-Managing-Users.png" width="50%" /></div><br>
 
+
+### Run the Electron App
+
+ - Run the following command:
+
+    ```bash
+    cd electron
+    ```
+ - Open the `package.json` file and replace the scripts:, dependencies:, devDependencies: sections with:
+
+    ```json
+    "scripts": {
+        "build": "tsc && electron-rebuild",
+        "electron:start-live": "node ./live-runner.js",
+        "electron:start": "npm run build &&  electron --inspect=5858 ./",
+        "electron:pack": "npm run build && electron-builder build --dir -c ./electron-builder.config.json",
+        "electron:make": "npm run build && electron-builder build -c ./electron-builder.config.json -p always"
+    },
+    "dependencies": {
+        "@capacitor-community/electron": "^4.1.2",
+        "@capacitor-community/sqlite": "^5.0.7",
+        "better-sqlite3-multiple-ciphers": "^8.4.0",
+        "chokidar": "~3.5.3",
+        "crypto": "^1.0.1",
+        "crypto-js": "^4.1.1",
+        "electron-is-dev": "~2.0.0",
+        "electron-json-storage": "^4.6.0",
+        "electron-serve": "~1.1.0",
+        "electron-unhandled": "~4.0.1",
+        "electron-updater": "~5.0.1",
+        "electron-window-state": "~5.0.3",
+        "jszip": "^3.10.1",
+        "node-fetch": "2.6.7"
+    },
+    "devDependencies": {
+        "@types/better-sqlite3": "^7.6.4",
+        "@types/crypto-js": "^4.1.1",
+        "@types/electron-json-storage": "^4.5.0",
+        "electron": "^25.2.0",
+        "electron-builder": "^24.6.3",
+        "electron-rebuild": "^3.2.9",
+        "rimraf": "^5.0.1",
+        "typescript": "~4.3.5"
+    },
+
+    ```
+
+ - Then run the following commands:
+
+    ```bash
+    npm install
+    cd ..
+    npm run electron:start
+    ```
+
+ - Screenshot of the screen
+
+ <div align="center"><br><img src="/images/Part2-Electron-Ionic7-Angular-SQLite-Managing-Users.png" width="50%" /></div><br>
 
 

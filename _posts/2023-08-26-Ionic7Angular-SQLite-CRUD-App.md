@@ -665,4 +665,136 @@ Enjoy your development from there.
 
 
 ## Part 2 - Native - Table of Contents
-Not Implemented Yet
+
+---
+ - [Install Native Required Packages](#install-native-required-packages)
+ - [Update Config file](#update-config-file)
+ - [Update Package.json Scripts](#update-packagejson-scripts)
+ - [Run the iOS App]
+ - [Part 2 Conclusion](#part-1-conclusion)
+---
+
+### Install Native Required Packages
+
+ - In order to build Android, iOS, or Electron applications on specific devices, it is necessary to install the necessary capacitor packages first. So run the following commands:
+
+    ```bash
+    npm install --save @capacitor/android
+    npm install --save @capacitor/ios
+    npm install --save @capacitor-community/electron
+    ```
+ 
+ - Integrate the various platforms into the application.
+
+    ```bash
+    npx cap add android
+    npx cap add ios
+    npx cap add @capacitor-community/electron
+    ```
+
+### Update Config file
+
+The `capacitor.config.ts` file specifies parameters that the plugin needs, such as database location, database encryption, and the use of biometric authentication for access security. Such settings may be platform specific. 
+
+ - Please modify the `capacitor.config.ts` file as below :
+
+    ```ts
+    import { CapacitorConfig } from '@capacitor/cli';
+
+    const config: CapacitorConfig = {
+    appId: 'YOUR_APP_ID',
+    appName: 'YOUR_APP_NAME',
+    webDir: 'www',
+    loggingBehavior: 'debug',
+    server: {
+        androidScheme: "http"
+    },
+    plugins: {
+        CapacitorSQLite: {
+        iosDatabaseLocation: 'Library/CapacitorDatabase',
+        iosIsEncryption: false,
+        iosKeychainPrefix: 'YOUR_APP_NAME',
+        iosBiometric: {
+            biometricAuth: false,
+            biometricTitle : "Biometric login for capacitor sqlite"
+        },
+        androidIsEncryption: false,
+        androidBiometric: {
+            biometricAuth : false,
+            biometricTitle : "Biometric login for capacitor sqlite",
+            biometricSubTitle : "Log in using your biometric"
+        },
+        electronIsEncryption: false,
+        electronWindowsLocation: "C:\\ProgramData\\CapacitorDatabases",
+        electronMacLocation: "/Users/YOUR_NAME/CapacitorDatabases",
+        electronLinuxLocation: "Databases"
+        }
+    }
+    };
+    export default config;
+    ```
+
+### Update Package.json Scripts
+
+ - First install a new package to remove the sql.js wasm file to reduce the native package size
+
+    ```bash
+    npm install --save-dev rimraf
+    ```
+
+ - Open the `package.json` file and replace the scripts section with:
+
+    ```json
+    "scripts": {
+        "ng": "ng",
+        "start": "npm run copy:sql:wasm && ng serve",
+        "build:native": "npm run remove:sql:wasm && ng build",
+        "watch": "npm run copy:sql:wasm && ng build --watch --configuration development",
+        "test": "ng test",
+        "lint": "ng lint",
+        "ionic:serve:before": "npm run copy:sql:wasm",
+        "copy:sql:wasm": "copyfiles -u 3 node_modules/sql.js/dist/sql-wasm.wasm src/assets",
+        "remove:sql:wasm": "rimraf src/assets/sql-wasm.wasm",
+        "ionic:ios": "npm run remove:sql:wasm && ionic capacitor build ios",
+        "ionic:android": "npm run remove:sql:wasm && ionic capacitor build android",
+        "electron:install": "cd electron && npm install && cd ..",
+        "electron:prepare": "npm run remove:sql:wasm && ng build && npx cap sync @capacitor-community/electron && npx cap copy @capacitor-community/electron",
+        "electron:start": "npm run electron:prepare && cd electron && npm run electron:start"
+    },
+    ```
+
+### Run the iOS App
+
+ - Run the following command:
+
+    ```bash
+    npm run ionic:ios
+    ```
+
+ - In Xcode wait for indexed file to complete, clean the project and run the app. You will get the following screen
+
+ <div align="center"><br><img src="/images/Part2-iOS-Ionic7-Angular-SQLite-Database-SQLite-Managing-Users.png" width="50%" /></div><br>
+
+
+### Run the Android App
+
+ - Run the following command:
+
+    ```bash
+    npm run ionic:android
+    ```
+
+ - In Android Studio
+
+    - go to the menu Android/Preferences/Build, Execution, Deployment/Build Tools/Gradle and then select the gradle JDK `17 Oracle OpenJDK Version 17.0.7`. Then press `Apply` and `OK`.
+    - go to File/Sync Project With Gradle Files.
+    - go to Build/Clean Project.
+    - select your Emulator or Physical Device.
+    - run the app
+ 
+ - Screenshot of the screen:
+ 
+ <div align="center"><br><img src="/images/Part2-iOS-Ionic7-Angular-SQLite-Database-SQLite-Managing-Users.png" width="50%" /></div><br>
+
+
+

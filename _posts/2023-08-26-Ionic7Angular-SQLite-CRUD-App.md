@@ -644,7 +644,7 @@ On the screen-copy, ones has entered already some users.
 
 The database location can be see in the application tab of the development tools.
 
-<div align="center"><br><img src="/images/Ionic7-Angular-SQLite-Database-Location.png" width="300" /></div>
+<div align="center"><br><img src="/images/Ionic7-Angular-SQLite-Database-Location.png" width="80%" /></div>
 
 
 ### Part 1 Conclusion

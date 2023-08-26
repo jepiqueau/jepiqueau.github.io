@@ -7,8 +7,11 @@
 In that tutorial we will learned how to create a Ionic7/Angular basic CRUD application and implement the @capacitor-community/sqlite plugin to store the data in a SQLite database.
 
 The first part of the tutorial will concentrate on how to create that application and run it on a Web browser where the data will be stored on an Indexed database using sql.js and localForage modules.
+Go to [Part 1 - Web - Table of Contents](#part-1---web---table-of-contents)
 
 Thanks to the Ionic Team and their hard work to bring CAPACITOR 5, the second part will concentrate on native platforms (iOS and Android) and also on Electron platform.
+Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents)
+
 
 ## Part 1 - Web - Table of Contents
 
@@ -661,3 +664,5 @@ We learned how to used some basic methods of the '@capacitor-community/sqlite' p
 Enjoy your development from there.
 
 
+## Part 2 - Native - Table of Contents
+Not Implemented Yet

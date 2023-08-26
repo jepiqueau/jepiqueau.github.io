@@ -25,7 +25,7 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
  - [Update Config and Package.json Scripts](#update-config-and-packagejson-scripts)
  - [Run the Web SQLite App](#run-the-web-sqlite-app)
  - [Part 1 Conclusion](#part-1-conclusion)
- 
+
 ---
 
 ### Install New Ionic Application
@@ -776,7 +776,7 @@ The `capacitor.config.ts` file specifies parameters that the plugin needs, such 
 
  - In Xcode wait for indexed file to complete, clean the project and run the app. You will get the following screen
 
- <div align="center"><br><img src="/images/Part2-iOS-Ionic7-Angular-SQLite-Database-SQLite-Managing-Users.png" width="50%" /></div><br>
+ <div align="center"><br><img src="/images/Part2-iOS-Ionic7-Angular-SQLite-Managing-Users.png" width="50%" /></div><br>
 
 
 ### Run the Android App
@@ -797,7 +797,7 @@ The `capacitor.config.ts` file specifies parameters that the plugin needs, such 
  
  - Screenshot of the screen:
  
- <div align="center"><br><img src="/images/Part2-iOS-Ionic7-Angular-SQLite-Database-SQLite-Managing-Users.png" width="50%" /></div><br>
+ <div align="center"><br><img src="/images/Part2-Android-Ionic7-Angular-SQLite-Managing-Users.png" width="50%" /></div><br>
 
 
 

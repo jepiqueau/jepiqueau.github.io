@@ -30,7 +30,7 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
 
 ### Install New Ionic Application
 
- - Install the latest version of Ionic CLI and Cordova globally installed on your device, run the below command.
+ - Install the latest version of Ionic CLI globally installed on your device, run the below command.
 
     ```bash
     sudo npm install -g @ionic/cli

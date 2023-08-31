@@ -1214,7 +1214,7 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
 
     <div align="center"><br><img src="/images/Ionic7-React-SQLite-HomePage.png" width="250" /></div><br>
 
- - <p>To open the menu, click on the <span class="ion-ios-menu" style="font-size: 24px;"></span> icon in the top left corner.</p>
+ - <p>To open the menu, click on the <span style="font-size: 24px;"><ion-icon name="menu"></ion-icon></span> icon in the top left corner.</p>
 
    <div align="center"><br><img src="/images/Ionic7-React-SQLite-MenuOpen.png" width="250" /></div><br>
 

@@ -1214,7 +1214,7 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
 
     <div align="center"><br><img src="/images/Ionic7-React-SQLite-HomePage.png" width="250" /></div><br>
 
- - <p>To open the menu, click on the <i class="ion-ios-menu" style="font-size: 24px;"></i> icon in the top left corner.</p>
+ - <p>To open the menu, click on the <span class="ion-ios-menu" style="font-size: 24px;"></span> icon in the top left corner.</p>
 
    <div align="center"><br><img src="/images/Ionic7-React-SQLite-MenuOpen.png" width="250" /></div><br>
 
@@ -1225,11 +1225,13 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
 On the screen-copy, ones has entered already some users.
  - To input new users
     - type a new user on the input field "Rose Miller"  under Name
-    - press on the `"+"` button will add the user.
+    - press on the `"Add User"` button will add the user.
 
  - To update the `active`value for a user, press on the check icon on the left it will toggle the value from 1 to 0 or from 0 to 1.
 
  - To delete a user press on the `trash` icon.
+
+ - To save the database to store leave the `UsersPage` by going back `Home`.
 
 The database location can be see in the application tab of the development tools.
 

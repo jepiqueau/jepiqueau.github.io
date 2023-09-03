@@ -333,9 +333,6 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
         import { StorageService } from './app/services/storage.service';
         import { DbnameVersionService } from './app/services/dbname-version.service';
    
-        import { defineCustomElements as pwaElements} from '@ionic/pwa-elements/loader';
-        import { defineCustomElements as jeepSqlite} from 'jeep-sqlite/loader';
-
         if (environment.production) {
             enableProdMode();
         }

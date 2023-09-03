@@ -606,7 +606,7 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
 
     ```ts
     import { useState, useEffect, useRef, useContext } from 'react';
-    import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton,
+    import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCard,
             IonButtons, IonBackButton, useIonViewWillEnter, useIonViewWillLeave
         } from '@ionic/react';
     import './UsersPage.css';
@@ -654,7 +654,7 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
                 const isConn = await sqliteServ.isConnection(dbNameRef.current,false);
                 const lastId = await storageServ.addUser(newUser);
                 newUser.id = lastId;
-                await sqliteServ.saveToStore(dbNameRef.current);
+
                 // Update the users state to include the newly added user
                 setUsers(prevUsers => [...prevUsers, newUser]);
 
@@ -763,11 +763,15 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
             <IonContent>
                 {ref.current && (
                 <div>
-                    <h1>Add New User</h1>
-                    <UserForm onAddUser={handleAddUser} />
-                    <h2>Current Users</h2>
-                    <UserList users={users} onUpdateUser={handleUpdateUser} 
-                    onDeleteUser={handleDeleteUser}/>
+                    <IonCard>
+                        <h1>Add New User</h1>
+                        <UserForm onAddUser={handleAddUser} />
+                    </IonCard>
+                    <IonCard>
+                        <h2>Current Users</h2>
+                        <UserList users={users} onUpdateUser={handleUpdateUser} 
+                        onDeleteUser={handleDeleteUser}/>
+                    </IonCard>
                 </div>
                 )}
             </IonContent>
@@ -1359,7 +1363,10 @@ The `capacitor.config.ts` file specifies parameters that the plugin needs, such 
 
  - <p> In the <strong><code>Menu Content</code></strong> click on <strong><code>MANAGING USERS</code></strong></p>
  
-   <div align="center"><br><img src="/images/Part2-iOS-Ionic7-React-SQLite-Managing-Users.png" width="250" /></div><br>
+   <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
+    <div style="max-width: 40%;"><img src="/images/Part2-iOS-Ionic7-React-SQLite-Managing-Users-1.png"/></div>
+    <div style="max-width: 40%;"><img src="/images/Part2-iOS-Ionic7-React-SQLite-Managing-Users-2.png"/></div>
+   </div>
 
 On the screen-copy, ones has entered already some users.
  - To input new users

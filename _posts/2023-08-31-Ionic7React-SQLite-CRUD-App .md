@@ -993,13 +993,13 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
 
         const AppLogo: FC<AppLogoProps> = () => (
         <div className="AppLogo">
-            <img src="https://avatars3.githubusercontent.com/u/16580653?v=4" width="128" height="128" />
+            <img src="assets/JeepQLogo.png" width="128" height="128" />
         </div>
         );
 
         export default AppLogo;
         ```
-    Obviously use your own logo
+    Obviously use your own logo and store it in the `public/assets` folder.
 
     - In your Editor replace the code of `AppLogo/AppLogo.css` with 
 
@@ -1422,7 +1422,7 @@ On the screen-copies, ones has entered already some users.
 
  - To leave the `UsersPage` by going back `Home`.
 
- 
+
 ### Run the Electron App
 
  - Run the following command:
@@ -1469,6 +1469,8 @@ On the screen-copies, ones has entered already some users.
 
     ```
 
+ - In your Editor delete the `node_modules` folder and `package-lock.json` file.
+
  - Then run the following commands:
 
     ```bash
@@ -1477,9 +1479,32 @@ On the screen-copies, ones has entered already some users.
     npm run electron:start
     ```
 
- - Screenshot of the screen
+ - Screenshot of the screen for the Home page:
+ 
+ <div align="center"><br><img src="/images/Part2-Electron-Ionic7-React-SQLite-HomePage.png" width="50%" /></div><br>
 
- <div align="center"><br><img src="/images/Part2-Electron-Ionic7-React-SQLite-Managing-Users.png" width="50%" /></div><br>
+ - <p>To open the menu, click on the <span style="font-size: 24px;"><ion-icon name="menu"></ion-icon></span> icon in the top left corner.</p>
+
+   <div align="center"><br><img src="/images/Part2-Electron-Ionic7-React-SQLite-MenuOpen.png" width="250" /></div><br>
+
+ - <p> In the <strong><code>Menu Content</code></strong> click on <strong><code>MANAGING USERS</code></strong></p>
+ 
+   <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
+    <div style="max-width: 40%;"><img src="/images/Part2-Electron-Ionic7-React-SQLite-Managing-Users-1.png"/></div>
+    <div style="max-width: 40%%;"><img src="/images/Part2-Electron-Ionic7-React-SQLite-Managing-Users-2.png"/></div>
+   </div>
+
+On the screen-copies, ones has entered already some users.
+ - To input new users
+    - type a new user on the input field "Rose Miller"  under Name
+    - press on the `"Add User"` button will add the user.
+
+ - To update the `active`value for a user, press on the check icon on the left it will toggle the value from 1 to 0 or from 0 to 1.
+
+ - To delete a user press on the `trash` icon.
+
+ - To leave the `UsersPage` by going back `Home`.
+
 
 ### Part 2 Conclusion
 

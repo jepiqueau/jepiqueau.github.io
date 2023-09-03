@@ -2,7 +2,7 @@
 # Ionic 7 SQLite Database CRUD App Example Tutorial using React and @capacitor-community/sqlite
 ---
 
-*last updated on August 31, 2023 by Quéau Jean Pierre*
+*last updated on September 3, 2023 by Quéau Jean Pierre*
 
 In that tutorial we will learned how to create a Ionic7/React basic CRUD application and implement the @capacitor-community/sqlite plugin to store the data in a SQLite database.
 
@@ -1296,7 +1296,7 @@ The `capacitor.config.ts` file specifies parameters that the plugin needs, such 
     const config: CapacitorConfig = {
     appId: 'YOUR_APP_ID',
     appName: 'YOUR_APP_NAME',
-    webDir: 'www',
+    webDir: 'dist',
     loggingBehavior: 'debug',
     server: {
         androidScheme: "http"
@@ -1338,20 +1338,22 @@ The `capacitor.config.ts` file specifies parameters that the plugin needs, such 
 
     ```json
     "scripts": {
-        "ng": "ng",
-        "start": "npm run copy:sql:wasm && ng serve",
-        "build:native": "npm run remove:sql:wasm && ng build",
-        "watch": "npm run copy:sql:wasm && ng build --watch --configuration development",
-        "test": "ng test",
-        "lint": "ng lint",
-        "ionic:serve:before": "npm run copy:sql:wasm",
-        "copy:sql:wasm": "copyfiles -u 3 node_modules/sql.js/dist/sql-wasm.wasm src/assets",
-        "remove:sql:wasm": "rimraf src/assets/sql-wasm.wasm",
-        "ionic:ios": "npm run remove:sql:wasm && ionic capacitor build ios",
-        "ionic:android": "npm run remove:sql:wasm && ionic capacitor build android",
+        "dev": "npm run copy:sql:wasm && vite",
+        "build:web": "npm run copy:sql:wasm && npm run build",
+        "build:native": "npm run remove:sql:wasm && npm run build",
+        "build": "vite build",
+        "preview": "vite preview",
+        "copy:sql:wasm": "copyfiles -u 3 node_modules/sql.js/dist/sql-wasm.wasm public/assets",
+        "remove:sql:wasm": "rimraf public/assets/sql-wasm.wasm",
+        "ios:start": "npm run remove:sql:wasm && npm run build:native && npx cap sync && npx cap copy && npx cap open ios",
+        "android:start": "npm run remove:sql:wasm && npm run build:native && npx cap sync && npx cap copy && npx cap open android",
         "electron:install": "cd electron && npm install && cd ..",
-        "electron:prepare": "npm run remove:sql:wasm && ng build && npx cap sync @capacitor-community/electron && npx cap copy @capacitor-community/electron",
-        "electron:start": "npm run electron:prepare && cd electron && npm run electron:start"
+        "electron:prepare": "npm run remove:sql:wasm && npm run build && npx cap sync @capacitor-community/electron && npx cap copy @capacitor-community/electron",
+        "electron:start": "npm run electron:prepare && cd electron && npm run electron:start",
+        "test.e2e": "cypress run",
+        "test.unit": "vitest",
+        "lint": "eslint"
+
     },
     ```
 
@@ -1360,7 +1362,7 @@ The `capacitor.config.ts` file specifies parameters that the plugin needs, such 
  - Run the following command:
 
     ```bash
-    npm run ionic:ios
+    npm run ios:start
     ```
 
  - In Xcode wait for indexed file to complete, clean the project and run the app. You will get the following screen
@@ -1373,7 +1375,7 @@ The `capacitor.config.ts` file specifies parameters that the plugin needs, such 
  - Run the following command:
 
     ```bash
-    npm run ionic:android
+    npm run android:start
     ```
 
  - In Android Studio

@@ -1365,10 +1365,10 @@ The `capacitor.config.ts` file specifies parameters that the plugin needs, such 
  
    <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
     <div style="max-width: 40%;"><img src="/images/Part2-iOS-Ionic7-React-SQLite-Managing-Users-1.png"/></div>
-    <div style="max-width: 40%;"><img src="/images/Part2-iOS-Ionic7-React-SQLite-Managing-Users-2.png"/></div>
+    <div style="max-width: 38,1035%;"><img src="/images/Part2-iOS-Ionic7-React-SQLite-Managing-Users-2.png"/></div>
    </div>
 
-On the screen-copy, ones has entered already some users.
+On the screen-copies, ones has entered already some users.
  - To input new users
     - type a new user on the input field "Rose Miller"  under Name
     - press on the `"Add User"` button will add the user.
@@ -1377,7 +1377,7 @@ On the screen-copy, ones has entered already some users.
 
  - To delete a user press on the `trash` icon.
 
- - To save the database to store leave the `UsersPage` by going back `Home`.
+ - To leave the `UsersPage` by going back `Home`.
 
 
 ### Run the Android App
@@ -1396,11 +1396,33 @@ On the screen-copy, ones has entered already some users.
     - select your Emulator or Physical Device.
     - run the app
  
- - Screenshot of the screen:
+ - Screenshot of the screen for the Home page:
  
- <div align="center"><br><img src="/images/Part2-Android-Ionic7-React-SQLite-Managing-Users.png" width="50%" /></div><br>
+ <div align="center"><br><img src="/images/Part2-Android-Ionic7-React-SQLite-HomePage.png" width="50%" /></div><br>
 
+ - <p>To open the menu, click on the <span style="font-size: 24px;"><ion-icon name="menu"></ion-icon></span> icon in the top left corner.</p>
 
+   <div align="center"><br><img src="/images/Part2-Android-Ionic7-React-SQLite-MenuOpen.png" width="250" /></div><br>
+
+ - <p> In the <strong><code>Menu Content</code></strong> click on <strong><code>MANAGING USERS</code></strong></p>
+ 
+   <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
+    <div style="max-width: 40%;"><img src="/images/Part2-Android-Ionic7-React-SQLite-Managing-Users-1.png"/></div>
+    <div style="max-width: 40%%;"><img src="/images/Part2-Android-Ionic7-React-SQLite-Managing-Users-2.png"/></div>
+   </div>
+
+On the screen-copies, ones has entered already some users.
+ - To input new users
+    - type a new user on the input field "Rose Miller"  under Name
+    - press on the `"Add User"` button will add the user.
+
+ - To update the `active`value for a user, press on the check icon on the left it will toggle the value from 1 to 0 or from 0 to 1.
+
+ - To delete a user press on the `trash` icon.
+
+ - To leave the `UsersPage` by going back `Home`.
+
+ 
 ### Run the Electron App
 
  - Run the following command:

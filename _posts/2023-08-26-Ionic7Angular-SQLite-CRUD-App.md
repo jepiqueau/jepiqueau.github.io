@@ -332,6 +332,9 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
         import { SQLiteService } from './app/services/sqlite.service';
         import { StorageService } from './app/services/storage.service';
         import { DbnameVersionService } from './app/services/dbname-version.service';
+   
+        import { defineCustomElements as pwaElements} from '@ionic/pwa-elements/loader';
+        import { defineCustomElements as jeepSqlite} from 'jeep-sqlite/loader';
 
         if (environment.production) {
             enableProdMode();
@@ -560,13 +563,13 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
         <ion-checkbox
         aria-label="Label"
         slot="start"
-        ngModel="user.active"
+        [ngModel]="user.active"
         (ionChange)="updateUser(user)" >
         </ion-checkbox>
 
-        <ion-label>
+        <span>
         {{ user.id }} - {{ user.name }} - {{ user.active }}
-        </ion-label>
+        </span>
 
         <ion-button slot="end" (click)="deleteUser(user)" fill="clear" color="danger">
         <ion-icon name="trash" slot="icon-only"></ion-icon>

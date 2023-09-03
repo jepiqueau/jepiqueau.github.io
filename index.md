@@ -32,5 +32,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <p align="center">
   <a href="https://github.com/jepiqueau" title="jepiqueau"><img src="https://github.com/jepiqueau.png?size=100" width="50" height="50"/></a>
+  <a href="https://github.com/dw-0" title="jepiqueau"><img src="https://github.com/dw-0.png?size=100" width="50" height="50"/></a>
 </p>
 

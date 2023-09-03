@@ -657,6 +657,7 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
                 await sqliteServ.saveToStore(dbNameRef.current);
                 // Update the users state to include the newly added user
                 setUsers(prevUsers => [...prevUsers, newUser]);
+
             }
         };
 
@@ -667,7 +668,7 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
                 // Update the users state with the modified user
                 setUsers(prevUsers =>
                     prevUsers.map(user =>
-                        user.id === updUser.id ? { ...user, active: updUser.active } : user
+                    user.id === updUser.id ? { ...user, active: updUser.active } : user
                     )
                 );
             }
@@ -683,10 +684,7 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
         };
 
         useIonViewWillEnter( () => {
-            // The initSubscription is required for live reload or refresh
-            // It will prevent the UsersPage to render till
-            // the storageService initialization is completed
-            const initSubscription = storageServ.isInitCompleted.subscribe((value) => {
+            const initSubscription = storageServ.isInitCompleted.subscribe  ((value) => {
                 isInitComplete.current = value;
                 if(isInitComplete.current === true) {
                     const dbUsersName = storageServ.getDatabaseName();
@@ -703,7 +701,6 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
                                     duration: 'long'
                                 });           
                             });
-
                         } else {
                             openDatabase();
                         }
@@ -725,8 +722,8 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
                 const msg = `Error close database:: ${error}`;
                 console.error(msg);
                 Toast.show({
-                    text: `${msg}`,
-                    duration: 'long'
+                text: `${msg}`,
+                duration: 'long'
                 });           
             });
         });
@@ -752,35 +749,28 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
             }
         }, [db]);
 
+
         return (
             <IonPage>
-                <IonHeader>
-                    <IonToolbar>
-                    <IonTitle>Managing Users</IonTitle>
-                    <IonButtons slot="start">
-                        <IonBackButton text="home" defaultHref="/home"></IonBackButton>
-                    </IonButtons>
-                    </IonToolbar>
-                </IonHeader>
-                <IonContent fullscreen>
-                    <IonHeader collapse="condense">
-                    <IonToolbar>
-                        <IonTitle size="large">Managing Users</IonTitle>
-                        <IonButtons slot="start">
-                        <IonBackButton text="home" defaultHref="/home"></IonBackButton>
-                        </IonButtons>
-                    </IonToolbar>
-                    </IonHeader>
-                    {ref.current && (
-                        <div>
-                            <h1>Add New User</h1>
-                            <UserForm onAddUser={handleAddUser} />
-                            <h2>Current Users</h2>
-                            <UserList users={users} onUpdateUser={handleUpdateUser} 
-                            onDeleteUser={handleDeleteUser}/>
-                        </div>
-                    )}
-                </IonContent>
+            <IonHeader>
+                <IonToolbar>
+                <IonTitle>Managing Users</IonTitle>
+                <IonButtons slot="start">
+                    <IonBackButton text="home" defaultHref="/home"></IonBackButton>
+                </IonButtons>
+                </IonToolbar>
+            </IonHeader>
+            <IonContent>
+                {ref.current && (
+                <div>
+                    <h1>Add New User</h1>
+                    <UserForm onAddUser={handleAddUser} />
+                    <h2>Current Users</h2>
+                    <UserList users={users} onUpdateUser={handleUpdateUser} 
+                    onDeleteUser={handleDeleteUser}/>
+                </div>
+                )}
+            </IonContent>
             </IonPage>
         );
     };
@@ -1094,13 +1084,7 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
                         <IonTitle>Home</IonTitle>
                     </IonToolbar>
                 </IonHeader>
-                <IonContent fullscreen>
-                    <IonHeader collapse="condense">
-                        <IonToolbar>
-                            <AppMenuButton />
-                            <IonTitle size="large">Home</IonTitle>
-                        </IonToolbar>
-                    </IonHeader>
+                <IonContent>
                     <AppLogo />
                     <AppIntroText />
                 </IonContent>
@@ -1160,7 +1144,7 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
     ```css
     .AppMenu ion-button {
         --background: transparent;
-        --color: white;
+        --color: initial;
         font-size: 18px;
     }
     ```
@@ -1365,9 +1349,28 @@ The `capacitor.config.ts` file specifies parameters that the plugin needs, such 
     npm run ios:start
     ```
 
- - In Xcode wait for indexed file to complete, clean the project and run the app. You will get the following screen
+ - In Xcode wait for indexed file to complete, clean the project and run the app. You will get the following screen for the Home Page
 
- <div align="center"><br><img src="/images/Part2-iOS-Ionic7-React-SQLite-Managing-Users.png" width="50%" /></div><br>
+    <div align="center"><br><img src="/images/Part2-iOS-Ionic7-React-SQLite-HomePage.png" width="250" /></div><br>
+
+ - <p>To open the menu, click on the <span style="font-size: 24px;"><ion-icon name="menu"></ion-icon></span> icon in the top left corner.</p>
+
+   <div align="center"><br><img src="/images/Part2-iOS-Ionic7-React-SQLite-MenuOpen.png" width="250" /></div><br>
+
+ - <p> In the <strong><code>Menu Content</code></strong> click on <strong><code>MANAGING USERS</code></strong></p>
+ 
+   <div align="center"><br><img src="/images/Part2-iOS-Ionic7-React-SQLite-Managing-Users.png" width="250" /></div><br>
+
+On the screen-copy, ones has entered already some users.
+ - To input new users
+    - type a new user on the input field "Rose Miller"  under Name
+    - press on the `"Add User"` button will add the user.
+
+ - To update the `active`value for a user, press on the check icon on the left it will toggle the value from 1 to 0 or from 0 to 1.
+
+ - To delete a user press on the `trash` icon.
+
+ - To save the database to store leave the `UsersPage` by going back `Home`.
 
 
 ### Run the Android App

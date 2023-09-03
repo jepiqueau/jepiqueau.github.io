@@ -1365,7 +1365,7 @@ The `capacitor.config.ts` file specifies parameters that the plugin needs, such 
  
    <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
     <div style="max-width: 40%;"><img src="/images/Part2-iOS-Ionic7-React-SQLite-Managing-Users-1.png"/></div>
-    <div style="max-width: 38,1035%;"><img src="/images/Part2-iOS-Ionic7-React-SQLite-Managing-Users-2.png"/></div>
+    <div style="max-width: 38.1035%;"><img src="/images/Part2-iOS-Ionic7-React-SQLite-Managing-Users-2.png"/></div>
    </div>
 
 On the screen-copies, ones has entered already some users.
@@ -1408,7 +1408,7 @@ On the screen-copies, ones has entered already some users.
  
    <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
     <div style="max-width: 40%;"><img src="/images/Part2-Android-Ionic7-React-SQLite-Managing-Users-1.png"/></div>
-    <div style="max-width: 40%%;"><img src="/images/Part2-Android-Ionic7-React-SQLite-Managing-Users-2.png"/></div>
+    <div style="max-width: 40%;"><img src="/images/Part2-Android-Ionic7-React-SQLite-Managing-Users-2.png"/></div>
    </div>
 
 On the screen-copies, ones has entered already some users.
@@ -1491,7 +1491,7 @@ On the screen-copies, ones has entered already some users.
  
    <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
     <div style="max-width: 40%;"><img src="/images/Part2-Electron-Ionic7-React-SQLite-Managing-Users-1.png"/></div>
-    <div style="max-width: 40%%;"><img src="/images/Part2-Electron-Ionic7-React-SQLite-Managing-Users-2.png"/></div>
+    <div style="max-width: 40%;"><img src="/images/Part2-Electron-Ionic7-React-SQLite-Managing-Users-2.png"/></div>
    </div>
 
 On the screen-copies, ones has entered already some users.

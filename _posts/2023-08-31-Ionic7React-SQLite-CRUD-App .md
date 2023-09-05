@@ -2,7 +2,7 @@
 # Ionic 7 SQLite Database CRUD App Example Tutorial using React and @capacitor-community/sqlite
 ---
 
-*last updated on September 3, 2023 by Quéau Jean Pierre*
+*last updated on September 5, 2023 by Quéau Jean Pierre*
 
 In that tutorial we will learned how to create a Ionic7/React basic CRUD application and implement the @capacitor-community/sqlite plugin to store the data in a SQLite database.
 
@@ -139,10 +139,10 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
 
  - To create CRUD and SQLite services, in your file editor, add a new `src/services` folder and create the two following files:
 
-    - `services/SQLiteService.ts`
-    - `services/StorageService.ts`
+    - `services/sqliteService.ts`
+    - `services/storageService.ts`
 
- - Open the `services/sqlite.service.ts` file and replace with the following code.
+ - Open the `services/sqliteService.ts` file and replace with the following code.
 
     ```ts
     import { CapacitorSQLite, SQLiteConnection, SQLiteDBConnection, capSQLiteUpgradeOptions } from '@capacitor-community/sqlite';
@@ -261,7 +261,7 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
     export default new SQLiteService();
     ```
 
- - Open the `services/storage.service.ts` and replace the code with
+ - Open the `services/storageService.ts` and replace the code with
 
     ```ts
     import {platform} from '../App';
@@ -1184,6 +1184,7 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
         "dev": "npm run copy:sql:wasm && vite",
         ```
 
+
 ### Run the Web SQLite App
 
  - To run the Web app use the below command
@@ -1232,7 +1233,7 @@ We have completed the Part 1 - Web application of the Ionic 7 SQLite Database CR
 
 We learned how to implement the '@capacitor-community/sqlite' plugin in the React Framework using standalone components on a Web platform.
 
-We learned to use Context providers to ensure that the services are available to all components within your app.
+We learned to use Context providers to ensure that the services are available to all components within the app.
 
 We learned how to create an application menu.
 
@@ -1267,6 +1268,7 @@ Enjoy your development from there.
  - Integrate the various platforms into the application.
 
     ```bash
+    npm run build
     npx cap add android
     npx cap add ios
     npx cap add @capacitor-community/electron

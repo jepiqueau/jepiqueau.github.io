@@ -1469,7 +1469,7 @@ On the screen-copies, ones has entered already some users.
 
  - Screenshot of the screen for the Home page:
  
- <div align="center"><br><img src="/images/Part2-Electron-Ionic7-Vuet-SQLite-HomePage.png" width="50%" /></div><br>
+ <div align="center"><br><img src="/images/Part2-Electron-Ionic7-Vue-SQLite-HomePage.png" width="50%" /></div><br>
 
  - <p>To open the menu, click on the <span style="font-size: 24px;"><ion-icon name="menu"></ion-icon></span> icon in the top left corner.</p>
 

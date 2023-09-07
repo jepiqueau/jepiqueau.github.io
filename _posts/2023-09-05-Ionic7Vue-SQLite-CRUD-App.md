@@ -924,8 +924,10 @@ The application can be found at [Part-2/ionic7-vue-sqlite-app](https://github.co
     });
     </script>
       ```
+
     !!! Caution Between the </ion-checkbox> <ion-button tags
-    You must read `Double left Curly Bracket` user.id `Double Right Curly Bracket` - `Double left Curly Bracket` user.name 
+    You must read `Double left Curly Bracket` user.id `Double Right Curly Bracket` - `Double left Curly Bracket` user.name `Double Right Curly Bracket`
+
 
 ### Modify the Home Page
 

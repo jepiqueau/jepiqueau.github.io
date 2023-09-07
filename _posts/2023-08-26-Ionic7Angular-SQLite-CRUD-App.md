@@ -576,7 +576,7 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
     </ion-content>
     ``` 
     
-    !!! Caution Between the <span> </span> 
+    !!! Caution Between the span tags
     You must read `Double left Curly Bracket` user.id `Double Right Curly Bracket` - `Double left Curly Bracket` user.name `Double Right Curly Bracket` -  `Double left Curly Bracket` user.active `Double Right Curly Bracket`
 
  - Now the `app-users` component can be used in the Home page. Open the `home/home.page.html` file  and replace the code with

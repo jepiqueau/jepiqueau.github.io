@@ -576,10 +576,10 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
     </ion-content>
     ``` 
     
-    Caution in between the span tag you must read 
+    Caution in between the span tag you must read (i put it under double quotes to be display only)
 
     ```ts
-        {{ user.id }} - {{ user.name }} - {{ user.active }}
+        "{{ user.id }} - {{ user.name }} - {{ user.active }}"
     ```
 
  - Now the `app-users` component can be used in the Home page. Open the `home/home.page.html` file  and replace the code with

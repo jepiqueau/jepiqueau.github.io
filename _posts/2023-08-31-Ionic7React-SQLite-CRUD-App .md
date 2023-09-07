@@ -2,15 +2,20 @@
 # Ionic 7 SQLite Database CRUD App Example Tutorial using React and @capacitor-community/sqlite
 ---
 
-*last updated on September 5, 2023 by Quéau Jean Pierre*
+*last updated on September 7, 2023 by Quéau Jean Pierre*
 
 In that tutorial we will learned how to create a Ionic7/React basic CRUD application and implement the @capacitor-community/sqlite plugin to store the data in a SQLite database.
 
 The first part of the tutorial will concentrate on how to create that application and run it on a Web browser where the data will be stored on an Indexed database using sql.js and localForage modules.
 Go to [Part 1 - Web - Table of Contents](#part-1---web---table-of-contents)
 
+The application can be found at [Part-1/ionic7-react-sqlite-app](https://github.com/jepiqueau/blog-tutorials-apps/tree/main/Part-1/ionic7-react-sqlite-app)
+
 Thanks to the Ionic Team and their hard work to bring CAPACITOR 5, the second part will concentrate on native platforms (iOS and Android) and also on Electron platform.
 Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents)
+
+The application can be found at [Part-2/ionic7-react-sqlite-app](https://github.com/jepiqueau/blog-tutorials-apps/tree/main/Part-2/ionic7-react-sqlite-app)
+
 
 
 ## Part 1 - Web - Table of Contents
@@ -949,9 +954,7 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
                             checked={user.active === 1}
                             onIonChange={() => handleCheckboxChange(user)}>
                         </IonCheckbox>
-                        <IonLabel>
                         {user.id} - {user.name}
-                        </IonLabel>
                         <IonButton
                             slot="end"
                             fill="clear"
@@ -1176,6 +1179,7 @@ Go to [Part 2 - Native - Table of Contents](#part-2---native---table-of-contents
 
         ```json
         "copy:sql:wasm": "copyfiles -u 3 node_modules/sql.js/dist/sql-wasm.wasm public/assets",
+        "ionic:serve:before": "npm run copy:sql:wasm",
         ```
 
     - modify the `"dev": "vite",` with
@@ -1465,7 +1469,6 @@ On the screen-copies, ones has entered already some users.
         "electron": "^25.2.0",
         "electron-builder": "^24.6.3",
         "electron-rebuild": "^3.2.9",
-        "rimraf": "^5.0.1",
         "typescript": "~4.3.5"
     },
 

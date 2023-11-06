@@ -1062,6 +1062,9 @@ Congratulations, the Web part of the application is now working
  npx cap copy
  npx cap open android
  ```
+ - In AndroidStudio got to Preferences->Build,Execution,Deployment->Build Tools->Gradle
+   - modify Gradle JDK to `17 Oracle OpenJDK version 17.0.7`. 
+   - click on `Apply`and `OK`.
 
  - Add these lines in the `AndroidManifest.xml` file
 
@@ -1089,6 +1092,14 @@ Congratulations, the Web part of the application is now working
  ```xml
      implementation 'com.google.android.gms:play-services-cast-framework:21.3.0'
  ```
+
+ - In `variables.gradle` file modify
+  
+ ```xml
+ coreSplashScreenVersion = '1.0.1'
+ ```
+ - Go to File->Sync Project with Gradle files.
+
 
 ### Conclusion
 

@@ -1,7 +1,7 @@
 # SQLite Database Encryption using the @capacitor-community/sqlite plugin
 ---
 
-*last updated on October 6, 2023 by Quéau Jean Pierre*
+*last updated on November 6, 2023 by Quéau Jean Pierre*
 
 In that tutorial we will learned how to `encrypt` existing or new SQLite databases using the @capacitor-community/sqlite plugin.
 
@@ -457,7 +457,7 @@ We learned how to enhance the sqliteService with some methods that you may need 
 
 All this learning is not Framework dependent
 
-An example for the Vue Framework can be found  at [Encryption/ionic7-vue-sqlite-app-encryption](https://github.com/jepiqueau/blog-tutorials-apps/tree/main/Encryption/ionic7-vue-sqlite-app-encryption)
+An example for the Vue Framework can be found  at [Encryption/ionic7-vue-sqlite-app-encryption](https://github.com/jepiqueau/blog-tutorials-apps/tree/main/SQLite/Encryption/ionic7-vue-sqlite-app-encryption)
 
 
 

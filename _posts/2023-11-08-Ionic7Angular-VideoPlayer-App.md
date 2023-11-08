@@ -708,6 +708,6 @@ To get the platform, we use the Capacitor Device plugin, so we first need to ins
 
  - The application will look like has below in the Web browser.
 
-    <video width="30%"  controls>
+    <video width="60%"  controls>
       <source src="/videos/IonicAngularVideoPlayerAppWeb.mp4" type="video/mp4">
     </video><br>

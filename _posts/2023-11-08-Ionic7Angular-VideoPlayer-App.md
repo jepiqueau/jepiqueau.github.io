@@ -23,6 +23,7 @@ The application can be found at [ionic7-angular-videoplayer-app](https://github.
  - [Create the Viewvideo Page](#create-the-viewvideo-page)
  - [Capacitor Video Player API methods](#capacitor-video-player-api-methods)
  - [Run the Web Application](#run-the-web-application)
+ - [Prepare for Native Applications](#prepare-for-native-applications)
 
 
 
@@ -177,23 +178,29 @@ Fetch the Video list from the `DataService` and render it on the Home page.
  - Open the `home.page.html` under the `home`folder and replace the code with this.
 
  ```html
- <ion-content [fullscreen]="true">
-  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+    <ion-header [translucent]="true">
+        <ion-toolbar>
+            <ion-title>
+            Video List
+            </ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content [fullscreen]="true">
+        <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+            <ion-refresher-content></ion-refresher-content>
+        </ion-refresher>
+        <ion-header collapse="condense">
+            <ion-toolbar>
+            <ion-title size="large">
+                Video List
+            </ion-title>
+            </ion-toolbar>
+        </ion-header>
 
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">
-        Video List
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-list>
-    <app-videoitem *ngFor="let video of getVideos(); index as i" [video]="video" [index]="i"></app-videoitem>
-  </ion-list>
- </ion-content>
+        <ion-list>
+            <app-videoitem *ngFor="let video of getVideos(); index as i" [video]="video" [index]="i"></app-videoitem>
+        </ion-list>
+    </ion-content>
  ``` 
 
   - Then open the `home.page.ts` under the `home`folder and replace the code with this.
@@ -711,3 +718,52 @@ To get the platform, we use the Capacitor Device plugin, so we first need to ins
     <video width="90%"  controls>
       <source src="/videos/IonicAngularVideoPlayerAppWeb.mp4" type="video/mp4">
     </video><br>
+
+### Prepare for Native Applications
+
+ - Install @capacitor/ios and @capacitor/android.
+
+ ```bash
+    npm install @capacitor/ios @capacitor/android
+ ```
+
+ - Edit `appId` in the `capacitor.config.ts` with YOUR_APP_ID.
+
+ - Edit `appName` in the `capacitor.config.ts` with YOUR_APP_NAME.
+
+ - Create a production build.
+
+ ```bash
+    npm run build --prod
+ ```
+ 
+ - Add iOS platform.
+
+ ```bash
+    npx cap add ios
+ ```
+
+ - Add Android platform.
+
+ ```bash
+    npx cap add android
+ ```
+ 
+ - Copy the Ionic build to iOS and Android platforms.
+
+ ```bash
+    npx cap copy
+ ```
+ 
+### Run the iOS Application
+
+ ```bash
+    npx cap open ios
+ ```
+
+ - The application will look like has below in the iOS Device.
+
+    <video width="50%"  controls>
+      <source src="/videos/Ionic7AngularVideoPlayerAppIOS.mp4" type="video/mp4">
+    </video><br>
+

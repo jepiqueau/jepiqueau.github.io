@@ -342,7 +342,7 @@ To get the platform, we use the Capacitor Device plugin, so we first need to ins
     npm run start
  ```
 
- - The application will lokk like has below in the Web browser.
+ - The application will look like has below in the Web browser.
 
   <div align="center"><br><img src="/images/Ionic7-Angular-VideoList.png" width="50%" /></div><br>
 
@@ -700,4 +700,14 @@ To get the platform, we use the Capacitor Device plugin, so we first need to ins
  
 ### Run the Web Application
 
+ - Run the app
 
+ ```bash
+    npm run start
+ ```
+
+ - The application will look like has below in the Web browser.
+
+    <video width="30%"  controls>
+      <source src="/videos/IonicAngularVideoPlayerAppWeb" type="video/mp4">
+    </video><br>

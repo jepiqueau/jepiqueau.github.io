@@ -1,7 +1,7 @@
 # Ionic 7 VideoPlayer App Example Tutorial using Angular and capacitor-video-player plugin
 ---
 
-*last updated on November 8, 2023 by Quéau Jean Pierre*
+*last updated on November 9, 2023 by Quéau Jean Pierre*
 
 In this tutorial, we will learn how to create a simple Ionic7/Angular video player application by implementing the capacitor-video-player plugin to display a list of videos with some data and play a selected video in fullscreen mode.
 
@@ -24,6 +24,9 @@ The application can be found at [ionic7-angular-videoplayer-app](https://github.
  - [Capacitor Video Player API methods](#capacitor-video-player-api-methods)
  - [Run the Web Application](#run-the-web-application)
  - [Prepare for Native Applications](#prepare-for-native-applications)
+ - [Run the iOS Application](#run-the-ios-application)
+ - [Run the Android Application](#run-the-android-application)
+ - [Conclusion](#conclusion)
 
 
 
@@ -767,3 +770,64 @@ To get the platform, we use the Capacitor Device plugin, so we first need to ins
       <source src="/videos/Ionic7AngularVideoPlayerAppIOS.mp4" type="video/mp4">
     </video><br>
 
+
+### Run the Android Application
+
+ ```bash
+    npx cap open android
+ ```
+
+ - In AndroidStudio got to Preferences->Build,Execution,Deployment->Build Tools->Gradle
+   - modify Gradle JDK to `17 Oracle OpenJDK version 17.0.7`. 
+   - click on `Apply`and `OK`.
+
+ - Add these lines in the `AndroidManifest.xml` file
+
+ ```xml
+    <meta-data
+        android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
+        android:value="com.google.android.exoplayer2.ext.cast.DefaultCastOptionsProvider">
+    </meta-data>
+ ```
+ 
+ and 
+
+ ```xml
+     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
+ ```
+
+ - Add this dependency in the `build.gradle(Project: android)` file under dependencies
+
+ ```xml
+    classpath 'com.google.gms:google-services:4.4.0'
+ ```
+
+ - Add this implementation in the `build.gradle(Module: app)`file under dependencies
+
+ ```xml
+     implementation 'com.google.android.gms:play-services-cast-framework:21.3.0'
+ ```
+
+ - In `variables.gradle` file modify
+  
+ ```xml
+ coreSplashScreenVersion = '1.0.1'
+ ```
+ - Go to File->Sync Project with Gradle files.
+
+ - Build and run the application
+
+ - The application will look like has below in the AndroidDevice.
+
+    <video width="50%"  controls>
+      <source src="/videos/Ionic7AngularVideoPlayerAppAndroid.mov" type="video/mp4">
+    </video><br>
+
+
+### Conclusion
+
+We have completed the Ionic 7 VideoPlayer App Example Tutorial using Angular framework and the capacitor-video-player plugin.
+
+We learned how to implement the `capacitor-video-player` plugin in the Angular Framework using Ionic UI component toolkit, and Ionic Capacitor which add native functionality.
+
+Enjoy your development from there.

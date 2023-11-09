@@ -766,8 +766,8 @@ To get the platform, we use the Capacitor Device plugin, so we first need to ins
 
  - The application will look like has below in the iOS Device.
 
-    <video width="90%"  controls>
-      <source src="/videos/Ionic7AngularVideoPlayerAppIOS.mp4" type="video/mp4">
+    <video width="50%"  controls>
+      <source src="/videos/Ionic7AngularVideoPlayerAppIOS.mov" type="video/mov">
     </video><br>
 
 
@@ -820,7 +820,7 @@ To get the platform, we use the Capacitor Device plugin, so we first need to ins
  - The application will look like has below in the AndroidDevice.
 
     <video width="50%"  controls>
-      <source src="/videos/Ionic7AngularVideoPlayerAppAndroid.mov" type="video/mp4">
+      <source src="/videos/Ionic7AngularVideoPlayerAppAndroid.mov" type="video/mov">
     </video><br>
 
 

@@ -38,6 +38,7 @@ The application can be found at [Part-2/quasar-sqlite-app](https://github.com/je
  - [Create the QuerySQLite Hook](#create-the-querysqlite-hook)
  - [Update Config](#update)
  - [Run the Web SQLite App](#run-the-web-sqlite-app)
+ - [Upgrade Database to Version2](#upgrade-database-to-version2)
  - [Part 1 Conclusion](#part-1-conclusion)
 
 ---
@@ -126,22 +127,22 @@ The application can be found at [Part-2/quasar-sqlite-app](https://github.com/je
     ```ts
     export const UserUpgradeStatements = [
         {
-        toVersion: 1,
-        statements: [
-            `CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            active INTEGER DEFAULT 1
-            );`
-        ]
+            toVersion: 1,
+            statements: [
+                `CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                active INTEGER DEFAULT 1
+                );`
+            ]
         },
         /* add new statements below for next database version when required*/
         /*
         {
-        toVersion: 2,
-        statements: [
-            `ALTER TABLE users ADD COLUMN email TEXT;`,
-        ]
+            toVersion: 2,
+            statements: [
+                `ALTER TABLE users ADD COLUMN email TEXT;`,
+            ]
         },
         */
     ]
@@ -156,11 +157,11 @@ The application can be found at [Part-2/quasar-sqlite-app](https://github.com/je
 
     ```ts
     export interface User {
-        id: number
-        name: string
-        active: number
-        /* for version 2
-        email: string
+        id: number;
+        name: string;
+        active: number;
+        /*
+        email: string; // Version 2
         */
     }
     ```
@@ -760,7 +761,7 @@ The application can be found at [Part-2/quasar-sqlite-app](https://github.com/je
 
  Fill free to put whatever text you would like to see
 
- - Delete the `ExampleComponent.vue`component from the `src/components`folder
+ - Delete the `ExampleComponent.vue`component and the `models.ts`from the `src/components`folder
 
 ### Modify the Main Layout
 
@@ -1212,6 +1213,7 @@ The main layout will include a menu on the right, which will allow users to navi
         ],
     }, 
  ```
+
 ### Users Component Implementation
 
  In that tutorial we use a simple UI interface for CRUD operations through the use of a `UserForm` and a `UserList` components.
@@ -1231,17 +1233,14 @@ The main layout will include a menu on the right, which will allow users to navi
             outlined
             dense
             :rules="[charsRule, twoWordsRule]"
-            @keyup.enter="handleEnterKey"
             />
-            <!-- Version 2
-            Email input
+            <!-- User Email Version 2
             <q-input
             v-model="formData.email"
             label="Email"
             outlined
             dense
             :rules="[emailRule]"
-            @keyup.enter="handleEnterKey"
             />
             -->
             <!-- Add more input fields as needed -->
@@ -1280,52 +1279,38 @@ The main layout will include a menu on the right, which will allow users to navi
         setup(props) {
             const isFormValid = ref(false);
             const isFormInit = ref(false);
-            const formData = {
+            const formData = ref({
                 username: '',
                 /* email: '', // version 2 */
-            };
+            });
             if (props.method === 'update' && props.onUpdateUser && props.user) {
-                formData.username = props.user.name;
-                /* formData.email = props.user.email; // version 2 */
+                formData.value.username = props.user.name;
+                /* formData.value.email = props.user.email; // version 2 */
             }
             /* const emailRule = () => {
                 if (isFormInit.value) return true;
-                const isValid = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(formData.email);
+                const isValid = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(formData.value.email);
                 return isValid || 'Invalid email format';
             } // version 2 */
             const charsRule = () => {
                 if (isFormInit.value) return true;
-                const isValid = /^[a-zA-Z0-9-' ']+$/.test(formData.username);
+                const isValid = /^[a-zA-Z0-9-' ']+$/.test(formData.value.username);
                 return isValid || 'Only alphanumeric characters are allowed';
             };
             const twoWordsRule = () => {
                 if (isFormInit.value) return true;
-                const words = formData.username.trim().split(' ');
+                const words = formData.value.username.trim().split(' ');
                 const isValid = words.length >= 2 && words.every((word) => word !== '');
                 return isValid || 'Must have at least 2 words';
-            };
-            const handleEnterKey = (event: { preventDefault: () => void }) => {
-                if (isFormInit.value) {
-                    isFormInit.value = false;
-                    event.preventDefault();
-                }
-                // Check all rules and update isFormValid
-                isFormValid.value = charsRule() === true && twoWordsRule() === true;
-                /*&& emailRule() === true // version 2 */
-
-                if (!isFormValid.value) {
-                    // Prevent form submission on Enter key if the form is not valid
-                    event.preventDefault();
-                }
             };
             const submitForm = () => {
                 if (isFormValid.value) {
                     if (props.method === 'add' && props.onAddUser) {
                         const newUser = {
                             id: Date.now(), // do not care about the id value (generated by sqlite)
-                            name: formData.username,
+                            name: formData.value.username,
                             active: 1,
-                            /* email: formData.email, // version 2 */
+                            /* email: formData.value.email, // version 2 */
                         };
                         if (typeof props.onAddUser === 'function') {
                             props.onAddUser(newUser);
@@ -1337,18 +1322,16 @@ The main layout will include a menu on the right, which will allow users to navi
                     ) {
                         const updateUser = {
                             id: props.user.id,
-                            name: formData.username,
+                            name: formData.value.username,
                             active: props.user.active,
-                            /* email: formData.email, // version 2 */
+                            /* email: formData.value.email, // version 2 */
                         };
                         if (typeof props.onUpdateUser === 'function') {
                             props.onUpdateUser(updateUser);
                         }
                     }
-                    console.log('Form submitted with data:', formData);
-                    console.log('re-init formData.username');
-                    formData.username = '';
-                    /* formData.email = ''; // version 2 */
+                    formData.value.username = '';
+                    /* formData.value.email = ''; // version 2 */
                     isFormInit.value = true;
                     isFormValid.value = false;
                 }
@@ -1359,7 +1342,6 @@ The main layout will include a menu on the right, which will allow users to navi
                 twoWordsRule,
                 submitForm,
                 isFormValid,
-                handleEnterKey,
                 /* emailRule, // Version 2 */
             };
         },
@@ -1520,13 +1502,13 @@ The Querysqlite hook is a generic query to query date from a database.
 
     - <p> In the <strong><code>Menu Content</code></strong> click on <strong><code>Managing Users</code></strong></p>
  
-    - <p> Enter a new user name (Sue Hellen) on the input field <strong><code>Rose Miller</code></strong> and press enter</p>
+    - <p> Enter a new user name (Sue Hellen) on the input field <strong><code>Rose Miller</code></strong></p>
 
     - <p> Click on the <strong><code>SUBMIT</code></strong> button</p>
 
     - <p><strong><code>Sue Hellen</code></strong>is now added to the Current Users list </p>
 
-    - <p> Enter a new user name (Dave Wat) on the input field <strong><code>Rose Miller</code></strong> and press enter</p>
+    - <p> Enter a new user name (Dave Wat) on the input field <strong><code>Rose Miller</code></strong></p>
 
     - <p> Click on the <strong><code>SUBMIT</code></strong> button</p>
 
@@ -1536,11 +1518,11 @@ The Querysqlite hook is a generic query to query date from a database.
 
     - <p> Modify the name <strong><code>Dave Wat</code></strong> by clicking on the <span style="font-size: 24px;color: #21BA45;"><ion-icon name="pencil"></ion-icon></span> icon</p>
 
-    - <p>The <strong><code>Update User</code></strong> modal form appears and update the name <strong><code>Dave Watson</code></strong></p>, then press enter.
+    - <p>The <strong><code>Update User</code></strong> modal form appears and update the name <strong><code>Dave Watson</code></strong></p>.
 
     - <p> Click on the <strong><code>SUBMIT</code></strong> button, the modal form disappears and the <strong><code>Current Users</code></strong> list is updated</p>
 
-    - <p> Enter a new user name (James Dean) on the input field <strong><code>Rose Miller</code></strong> and press enter</p>
+    - <p> Enter a new user name (James Dean) on the input field <strong><code>Rose Miller</code></strong></p>
 
     - <p> Click on the <strong><code>SUBMIT</code></strong> button</p>
 
@@ -1554,6 +1536,238 @@ The database location can be see in the application tab of the development tools
 
 <div align="center"><br><img src="/images/Ionic7-Vue-SQLite-Database-Location.png" width="80%" /></div><br>
 
+### Upgrade Database to Version2
+
+To upgrade the database to version 2, incremental upgrade statements will be used.
+An `email` field is added to the users table in version 2.
+
+The initial application code contains the code, but it has been accompanied by comments using the symbols '/*' and '*/'. These symbols require removal.
+
+ - Open the file `user.statements.ts` in folder `src/upgrades` and remove the symbols.
+
+ ```ts
+    export const UserUpgradeStatements = [
+        {
+            toVersion: 1,
+            statements: [
+            `CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            active INTEGER DEFAULT 1
+            );`,
+            ],
+        },
+        /* add new statements below for next database version when required*/
+        {
+            toVersion: 2,
+            statements: ['ALTER TABLE users ADD COLUMN email TEXT;'],
+        },
+    ];
+ ```
+ 
+ - The `user` model requires removal of symbols. Open the file `User.ts` in the `src/models` folder.
+
+ ```ts
+    export interface User {
+        id: number;
+        name: string;
+        active: number;
+        email: string; // Version 2
+    }
+ ```
+
+ - The addition of an email input field affects the `UserForm` component. Open the file `UserForm.vue` in the folder `src/components`.
+
+ ```ts
+    <template>
+        <q-form @submit.prevent="submitForm">
+            <!-- User Name input -->
+            <q-input
+                v-model="formData.username"
+                label="Rose Miller"
+                outlined
+                dense
+                :rules="[charsRule, twoWordsRule]"
+            />
+            <!-- User Email Version 2 -->
+            <q-input
+                v-model="formData.email"
+                label="Email"
+                outlined
+                dense
+                :rules="[emailRule]"
+            />
+            <!-- Add more input fields as needed -->
+
+            <q-btn v-if="isFormValid" type="submit" label="Submit" color="primary" />
+        </q-form>
+    </template>
+
+    <script lang="ts">
+    import { defineComponent, ref } from 'vue';
+    import { User } from '../models/User';
+
+    export default defineComponent({
+        name: 'UserForm',
+        props: {
+            method: {
+                type: String,
+                required: true,
+                validator: (value: string) => {
+                    return ['add', 'update'].includes(value);
+                },
+            },
+            user: {
+                type: Object as () => User | null,
+                default: null,
+            },
+            onAddUser: {
+                type: Function,
+                default: null,
+            },
+            onUpdateUser: {
+                type: Function,
+                default: null,
+            },
+        },
+        setup(props) {
+            const isFormValid = ref(false);
+            const isFormInit = ref(false);
+            const formData = ref({
+                username: '',
+                email: '', // version 2
+            });
+            if (props.method === 'update' && props.onUpdateUser && props.user) {
+                formData.value.username = props.user.name;
+                formData.value.email = props.user.email; // version 2
+            }
+            const emailRule = () => {
+                if (isFormInit.value) return true;
+                const isValid = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(
+                    formData.value.email
+                );
+                return isValid || 'Invalid email format';
+            }; // version 2
+            const charsRule = () => {
+                if (isFormInit.value) return true;
+                const isValid = /^[a-zA-Z0-9-' ']+$/.test(formData.value.username);
+                return isValid || 'Only alphanumeric characters are allowed';
+            };
+            const twoWordsRule = () => {
+                if (isFormInit.value) return true;
+                const words = formData.value.username.trim().split(' ');
+                const isValid = words.length >= 2 && words.every((word) => word !== '');
+                return isValid || 'Must have at least 2 words';
+            };
+            const handleEnterKey = (event: { preventDefault: () => void }) => {
+                if (isFormInit.value) {
+                    isFormInit.value = false;
+                    event.preventDefault();
+                }
+                // Check all rules and update isFormValid
+                isFormValid.value =
+                    charsRule() === true && twoWordsRule() === true && emailRule() === true; // version 2
+
+                if (!isFormValid.value) {
+                    // Prevent form submission on Enter key if the form is not valid
+                    event.preventDefault();
+                }
+            };
+            const submitForm = () => {
+                if (isFormValid.value) {
+                    if (props.method === 'add' && props.onAddUser) {
+                        const newUser = {
+                            id: Date.now(), // do not care about the id value (generated by sqlite)
+                            name: formData.value.username,
+                            active: 1,
+                            email: formData.value.email, // version 2
+                        };
+                        if (typeof props.onAddUser === 'function') {
+                            props.onAddUser(newUser);
+                        }
+                    } else if (
+                    props.method === 'update' &&
+                    props.onUpdateUser &&
+                    props.user
+                    )   {
+                        const updateUser = {
+                            id: props.user.id,
+                            name: formData.value.username,
+                            active: props.user.active,
+                            email: formData.value.email, // version 2
+                        };
+                        if (typeof props.onUpdateUser === 'function') {
+                            props.onUpdateUser(updateUser);
+                        }
+                    }
+                    formData.value.username = '';
+                    formData.value.email = ''; // version 2
+                    isFormInit.value = true;
+                    isFormValid.value = false;
+                }
+            };
+            return {
+                formData,
+                charsRule,
+                twoWordsRule,
+                submitForm,
+                isFormValid,
+                emailRule, // Version 2
+            };
+        },
+    });
+    </script>
+ ```
+
+ - It also affects the `UserList` component as the email must be displayed. Open the file `UserList.vue` in the folder `src/components`.
+ The `<!-- <q-item-label> {{ user.email }} </q-item-label> // version 2 -->`
+ must be uncommented  like this `<q-item-label> {{ user.email }} </q-item-label>`.
+
+ - run the application
+
+    ```bash
+    npm run dev
+    ```
+   When complete successfuly, the app will open in your default browser at
+
+    ```
+    http://localhost:9000/
+    ```
+
+ - This will bring you to the `Home` page. The video demonstrates the use of the application for the database version 2
+
+ 
+    <video width="50%"  controls>
+      <source src="/videos/Part1-Quasar-SQLite-App2.mov" type="video/mp4">
+    </video><br>
+
+ - Video storyboard
+
+    - <p>To open the menu, click on the <span style="font-size: 24px;"><ion-icon name="menu"></ion-icon></span> icon in the top right corner.</p>
+
+    - <p> In the <strong><code>Menu Content</code></strong> click on <strong><code>Managing Users</code></strong></p>
+
+    - <p> The <strong><code>email</code></strong> input field has been added to the <strong><code>Add New User</code></strong> form.</p>
+
+    - <p> The <strong><code>Current Users</code></strong> list shows the existing users</p>
+
+    - <p> Add the new user <strong><code>James Dean</code></strong> and its email <strong><code>james.dean@example.com</code></strong></p>.
+    
+    - <p> Click on the <strong><code>SUBMIT</code></strong> button. Check that the user list is updated.</p>
+
+    - <p> Update the email for <strong><code>Sue Hellen</code></strong> user by clicking on the <span style="font-size: 24px;color: #21BA45;"><ion-icon name="pencil"></ion-icon></span> icon</p>
+
+    - <p>The <strong><code>Update User</code></strong> modal form appears and update the email <strong><code>sue.hellen@example.com</code></strong></p>.
+
+    - <p> Click on the <strong><code>SUBMIT</code></strong> button. Check that the user list is updated.</p>
+
+    - <p> Update the email for <strong><code>Dave Watson</code></strong> user by clicking on the <span style="font-size: 24px;color: #21BA45;"><ion-icon name="pencil"></ion-icon></span> icon</p>
+
+    - <p>The <strong><code>Update User</code></strong> modal form appears and update the email <strong><code>dave.watson@example.com</code></strong></p>.
+
+    - <p> Click on the <strong><code>SUBMIT</code></strong> button. Check that the user list is updated.</p>
+
+    - <p> The database <strong><code>Version 2</code></strong> is now fully updated.</p>
 
 ### Part 1 Conclusion
 
@@ -1566,6 +1780,8 @@ We learned to use `provide/inject` to ensure that the services are unique and av
 We learned how to create an application menu.
 
 We learned how to used some basic methods of the '@capacitor-community/sqlite' plugin to create a CRUD application from scratched and store persistent SQLite data into the Web IndexedDB browser database.
+
+We learned how to upgrade the `version` of the database by using the incremental upgrade statements process.
 
 Enjoy your development from there.
 

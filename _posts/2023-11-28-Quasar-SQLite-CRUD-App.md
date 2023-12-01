@@ -2019,4 +2019,29 @@ CAUTION: Make sure that the `webDir` is set to `dist/spa`.
       <source src="/videos/Part2-iOS-Quasar-SQLite-App.mov" type="video/mp4">
     </video><br>
 
-- The `video storyboard` is the same that for the Web Part1 [Video Storyboard](#video-storyboard).
+ - The `video storyboard` is the same that for the Web Part1 [Video Storyboard](#video-storyboard).
+
+### Run the Android App
+
+ - Run the following command:
+
+    ```bash
+    npm run android:start
+    ```
+
+ - In Android Studio
+
+    - go to the menu Android/Preferences/Build, Execution, Deployment/Build Tools/Gradle and then select the gradle JDK `17 Oracle OpenJDK Version 17.0.7`. Then press `Apply` and `OK`.
+    - go to File/Sync Project With Gradle Files.
+    - go to Build/Clean Project.
+    - select your Emulator or Physical Device.
+    - run the app
+ 
+ - This will bring you to the `Home` page. The video demonstrates the use of the application for the database version 1
+
+ 
+    <video width="50%"  controls>
+      <source src="/videos/Part2-Android-Quasar-SQLite-App.mov" type="video/mp4">
+    </video><br>
+
+ - The `video storyboard` is the same that for the Web Part1 [Video Storyboard](#video-storyboard).

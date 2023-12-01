@@ -2,7 +2,7 @@
 # Quasar SQLite Database CRUD App Example Tutorial using @capacitor-community/sqlite
 ---
 
-*last updated on November 28, 2023 by Quéau Jean Pierre*
+*last updated on December 1, 2023 by Quéau Jean Pierre*
 
 In that tutorial we will learned how to create a Quasar basic CRUD application and implement the @capacitor-community/sqlite plugin to store the data in a SQLite database.
 
@@ -36,9 +36,10 @@ The application can be found at [Part-2/quasar-sqlite-app](https://github.com/je
  - [Users Page Implementation](#users-page-implementation)
  - [Users Component Implementation](#users-component-implementation)
  - [Create the QuerySQLite Hook](#create-the-querysqlite-hook)
- - [Update Config](#update)
+ - [Update Config](#update-config)
  - [Run the Web SQLite App](#run-the-web-sqlite-app)
- - [Upgrade Database to Version2](#upgrade-database-to-version2)
+ - [Video Storyboard](#video-storyboard)
+ - [Upgrade Database to Version 2](#upgrade-database-to-version-2)
  - [Part 1 Conclusion](#part-1-conclusion)
 
 ---
@@ -103,7 +104,7 @@ The application can be found at [Part-2/quasar-sqlite-app](https://github.com/je
 
  - What is the name of your app?: `quasar-sqlite-app`
  - What should be the Package ID for your app?: `YOUR_PACKAGE_ID` 
- - What is the web asset directory for your app?: `dist`
+ - What is the web asset directory for your app?: `dist/spa`
 
  When done, you must get [success] capacitor.config.ts created!
 
@@ -1496,7 +1497,7 @@ The Querysqlite hook is a generic query to query date from a database.
       <source src="/videos/Part1-Quasar-SQLite-App.mov" type="video/mp4">
     </video><br>
 
- - Video storyboard
+### Video storyboard
 
     - <p>To open the menu, click on the <span style="font-size: 24px;"><ion-icon name="menu"></ion-icon></span> icon in the top right corner.</p>
 
@@ -1536,7 +1537,7 @@ The database location can be see in the application tab of the development tools
 
 <div align="center"><br><img src="/images/Ionic7-Vue-SQLite-Database-Location.png" width="80%" /></div><br>
 
-### Upgrade Database to Version2
+### Upgrade Database to Version 2
 
 To upgrade the database to version 2, incremental upgrade statements will be used.
 An `email` field is added to the users table in version 2.
@@ -1786,3 +1787,236 @@ We learned how to upgrade the `version` of the database by using the incremental
 Enjoy your development from there.
 
 
+## Part 2 - Native - Table of Contents
+
+---
+ - [Update Capacitor Config file](#update-capacitor-config-file)
+ - [Install Native Required Packages](#install-native-required-packages)
+ - [Update Package.json Scripts](#update-packagejson-scripts)
+ - [Run the iOS App](#run-the-ios-app)
+
+---
+
+### Update Capacitor Config file
+
+The `capacitor.config.ts` file specifies parameters that the plugin needs, such as database location, database encryption, and the use of biometric authentication for access security. Such settings may be platform specific.
+
+CAUTION: Make sure that the `webDir` is set to `dist/spa`.
+
+ - Please modify the `capacitor.config.ts` file as below :
+
+    ```ts
+    import { CapacitorConfig } from '@capacitor/cli';
+
+    const config: CapacitorConfig = {
+    appId: 'YOUR_APP_ID',
+    appName: 'YOUR_APP_NAME',
+    webDir: 'dist/spa',
+    loggingBehavior: 'debug',
+    server: {
+        androidScheme: "http"
+    },
+    plugins: {
+        CapacitorSQLite: {
+        iosDatabaseLocation: 'Library/CapacitorDatabase',
+        iosIsEncryption: false,
+        iosKeychainPrefix: 'YOUR_APP_NAME',
+        iosBiometric: {
+            biometricAuth: false,
+            biometricTitle : "Biometric login for capacitor sqlite"
+        },
+        androidIsEncryption: false,
+        androidBiometric: {
+            biometricAuth : false,
+            biometricTitle : "Biometric login for capacitor sqlite",
+            biometricSubTitle : "Log in using your biometric"
+        },
+        electronIsEncryption: false,
+        electronWindowsLocation: "C:\\ProgramData\\CapacitorDatabases",
+        electronMacLocation: "/Users/YOUR_NAME/CapacitorDatabases",
+        electronLinuxLocation: "Databases"
+        }
+    }
+    };
+    export default config;
+    ```
+
+### Install Native Required Packages
+
+ - In order to build Android, iOS, or Electron applications on specific devices, it is necessary to install the necessary capacitor packages first. So run the following commands:
+
+    ```bash
+    npm i @capacitor/android
+    npm i @capacitor/ios
+    npm i @capacitor-community/electron
+    npm i -D rimraf
+    ```
+ 
+ - Integrate the various platforms into the application.
+
+    ```bash
+    npm run build
+    npx cap add android
+    npx cap add ios
+    npx cap add @capacitor-community/electron
+    ```
+
+### Update Package.json Scripts
+
+ - First install a new package to remove the sql.js wasm file to reduce the native package size
+
+    ```bash
+    npm install -D rimraf
+    ```
+
+ - Open the `package.json` file and replace the scripts section with:
+
+    ```json
+    "scripts": {
+        "lint": "eslint --ext .js,.ts,.vue ./",
+        "format": "prettier --write \"**/*.{js,ts,vue,css,html,md,json}\" --ignore-path .gitignore",
+        "test": "echo \"No test specified\" && exit 0",
+        "dev": "npm run copy:sql:wasm && quasar dev",
+        "build": "quasar build",
+        "build:web": "npm run copy:sql:wasm && quasar build",
+        "build:native": "npm run remove:sql:wasm && quasar build",
+        "copy:sql:wasm": "copyfiles -u 3 node_modules/sql.js/dist/sql-wasm.wasm public/assets",
+        "remove:sql:wasm": "rimraf public/assets/sql-wasm.wasm",
+        "ios:start": "npm run build:native && npx cap sync && npx cap copy && npx cap open ios",
+        "android:start": "npm run build:native && npx cap sync && npx cap copy && npx cap open android",
+        "electron:install": "cd electron && npm install && cd ..",
+        "electron:prepare": "npm run build:native && npx cap sync @capacitor-community/electron && npx cap copy @capacitor-community/electron",
+        "electron:start": "npm run electron:prepare && cd electron && npm run electron:start"
+    },
+    ```
+
+### Run the iOS App
+
+ - Before running on iOS, the code has to be modified to account for the difference between the `Super View` and the `Safe Area`.
+
+    - Open the `app.css` file under the `src/css` folder and add:
+
+    ```css
+    .ios {
+        top: 44px;
+    }
+    ```
+
+    - Change the code in file `src/pages/IndexPage.vue> to match this one.
+
+    ```ts
+    <template>
+        <q-page>
+            <app-logo></app-logo>
+            <app-intro-text></app-intro-text>
+        </q-page>
+    </template>
+
+    <script lang="ts">
+    import { defineComponent, onMounted, inject } from 'vue';
+    import AppLogo from 'components/AppLogo.vue';
+    import AppIntroText from 'components/AppIntroText.vue';
+    import SQLiteService from 'src/services/sqliteService';
+
+    export default defineComponent({
+    name: 'IndexPage',
+    components: { AppLogo, AppIntroText },
+        setup() {
+            // Inject services
+            const sqliteServ: SQLiteService | undefined = inject('sqliteServ');
+            const platform = sqliteServ?.getPlatform();
+            onMounted(() => {
+                if (platform === 'ios') {
+                    const headerEl = document.querySelector('.q-header');
+                    headerEl?.classList.add('ios');
+                    const pageEl = document.querySelector('.q-page');
+                    pageEl?.classList.add('ios');
+                }
+            });
+            return {};
+        },
+    });
+    </script>
+    ```
+    - Change the unMounted method code in file `src/pages/UsersPage.vue> to match this one.
+
+    ```ts 
+    onMounted(() => {
+      if (platform === 'ios') {
+        const headerEl = document.querySelector('.q-header');
+        headerEl?.classList.add('ios');
+        const pageEl = document.querySelector('.q-page');
+        pageEl?.classList.add('ios');
+      }
+      storageServ?.isInitCompleted.subscribe(async (value: boolean) => {
+        isInitComplete.value = value;
+        // Open the connection to the database
+        if (isInitComplete.value === true) {
+          if (platform === 'web') {
+            // Web Plaform
+            customElements
+              .whenDefined('jeep-sqlite')
+              .then(async () => {
+                await openDatabase();
+              })
+              .catch((error) => {
+                const msg = `Error open database: ${error}`;
+                console.log(msg);
+                Toast.show({
+                  text: msg,
+                  duration: 'long',
+                });
+              });
+          } else {
+            // Native Platforms
+            await openDatabase();
+          }
+        }
+      });
+    });
+    ```
+ - Open the file `src/layouts/MainLayout.vue> to match this one.
+
+    - add in the `import` section
+
+    ```ts
+    import { Capacitor } from '@capacitor/core';
+    ```
+ 
+    - modify the `setup` method 
+
+    ```ts
+    setup() {
+        const rightDrawerOpen = ref(false);
+        const platform = Capacitor.getPlatform();
+        return {
+            pages: pageList,
+            rightDrawerOpen,
+            toggleRightDrawer() {
+                rightDrawerOpen.value = !rightDrawerOpen.value;
+                if (platform === 'ios') {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    const menuEl: any = document.querySelector('.q-drawer');
+                    menuEl.style.top = '44px';
+                }
+            },
+        };
+    },
+
+
+ - Run the following command:
+
+    ```bash
+    npm run ios:start
+    ```
+
+ - In Xcode wait for indexed file to complete, clean the project and run the app.
+
+ - This will bring you to the `Home` page. The video demonstrates the use of the application for the database version 1
+
+ 
+    <video width="50%"  controls>
+      <source src="/videos/Part2-iOS-Quasar-SQLite-App.mov" type="video/mp4">
+    </video><br>
+
+- The `video storyboard` is the same that for the Web Part1 [Video Storyboard](#video-storyboard).

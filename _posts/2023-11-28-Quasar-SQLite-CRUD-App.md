@@ -2,7 +2,7 @@
 # Quasar SQLite Database CRUD App Example Tutorial using @capacitor-community/sqlite
 ---
 
-*last updated on December 1, 2023 by Quéau Jean Pierre*
+*last updated on December 2, 2023 by Quéau Jean Pierre*
 
 In that tutorial we will learned how to create a Quasar basic CRUD application and implement the @capacitor-community/sqlite plugin to store the data in a SQLite database.
 
@@ -1494,7 +1494,7 @@ The Querysqlite hook is a generic query to query date from a database.
 
  
     <video width="50%"  controls>
-      <source src="/videos/Part1-Quasar-SQLite-App.mov" type="video/mp4">
+      <source src="/videos/Part-1-Quasar-SQLite-App.mov" type="video/mp4">
     </video><br>
 
 ### Video storyboard
@@ -1739,7 +1739,7 @@ The initial application code contains the code, but it has been accompanied by c
 
  
     <video width="50%"  controls>
-      <source src="/videos/Part1-Quasar-SQLite-App2.mov" type="video/mp4">
+      <source src="/videos/Part-1-Quasar-SQLite-App2.mov" type="video/mp4">
     </video><br>
 
  - Video storyboard

@@ -1772,7 +1772,7 @@ The initial application code contains the code, but it has been accompanied by c
 
 ### Part 1 Conclusion
 
-We have completed the Part 1 - Web application of the Quasar SQLite Database CRUD App Example Tutorial using Quasar and @capacitor-community/sqlite.
+We have completed the Part 1 - Web application of the Quasar SQLite Database CRUD App Example Tutorial using Quasar Framework and @capacitor-community/sqlite.
 
 We learned how to implement the '@capacitor-community/sqlite' plugin in the Quasar Framework on a Web platform.
 
@@ -1794,6 +1794,9 @@ Enjoy your development from there.
  - [Install Native Required Packages](#install-native-required-packages)
  - [Update Package.json Scripts](#update-packagejson-scripts)
  - [Run the iOS App](#run-the-ios-app)
+ - [Run the Android App](#run-the-android-app)
+ - [Run the Electron App](#run-the-electron-app)
+ - [Part 2 Conclusion](#part-2-conclusion)
 
 ---
 
@@ -2016,7 +2019,7 @@ CAUTION: Make sure that the `webDir` is set to `dist/spa`.
 
  
     <video width="50%"  controls>
-      <source src="/videos/Part2-iOS-Quasar-SQLite-App.mov" type="video/mp4">
+      <source src="/videos/Part-2-iOS-Quasar-SQLite-App.mov" type="video/mp4">
     </video><br>
 
  - The `video storyboard` is the same that for the Web Part1 [Video Storyboard](#video-storyboard).
@@ -2041,7 +2044,85 @@ CAUTION: Make sure that the `webDir` is set to `dist/spa`.
 
  
     <video width="50%"  controls>
-      <source src="/videos/Part2-Android-Quasar-SQLite-App.mov" type="video/mp4">
+      <source src="/videos/Part-2-Android-Quasar-SQLite-App.mov" type="video/mp4">
     </video><br>
 
  - The `video storyboard` is the same that for the Web Part1 [Video Storyboard](#video-storyboard).
+
+### Run the Electron App
+
+ - Run the following command:
+
+    ```bash
+    cd electron
+    ```
+ - Open the `package.json` file and replace the scripts:, dependencies:, devDependencies: sections with:
+
+    ```json
+    "scripts": {
+        "build": "tsc && electron-rebuild",
+        "electron:start-live": "node ./live-runner.js",
+        "electron:start": "npm run build &&  electron --inspect=5858 ./",
+        "electron:pack": "npm run build && electron-builder build --dir -c ./electron-builder.config.json",
+        "electron:make": "npm run build && electron-builder build -c ./electron-builder.config.json -p always"
+    },
+    "dependencies": {
+        "@capacitor-community/electron": "^5.0.1",
+        "@capacitor-community/sqlite": "^5.4.2-2",
+        "better-sqlite3-multiple-ciphers": "^9.1.1",
+        "chokidar": "~3.5.3",
+        "crypto": "^1.0.1",
+        "crypto-js": "^4.1.1",
+        "electron-is-dev": "~2.0.0",
+        "electron-json-storage": "^4.6.0",
+        "electron-serve": "~1.2.0",
+        "electron-unhandled": "~4.0.1",
+        "electron-updater": "^6.1.7",
+        "electron-window-state": "^5.0.3",
+        "jszip": "^3.10.1",
+        "node-fetch": "2.6.7"
+    },
+    "devDependencies": {
+        "@electron/rebuild": "^3.4.0",
+        "@types/better-sqlite3": "^7.6.8",
+        "@types/crypto-js": "^4.1.1",
+        "@types/electron-json-storage": "^4.5.0",
+        "electron": "^27.1.3",
+        "electron-builder": "^24.9.1",
+        "typescript": "^5.0.4"
+    },
+
+    ```
+
+ - In your Editor delete the `node_modules` folder and `package-lock.json` file.
+
+ - Then run the following commands:
+
+    ```bash
+    npm install
+    cd ..
+    npm run electron:start
+    ```
+
+ - This will bring you to the `Home` page. The video demonstrates the use of the application for the database version 1
+
+ 
+    <video width="50%"  controls>
+      <source src="/videos/Part-2-Electron-Quasar-SQLite-App.mov" type="video/mp4">
+    </video><br>
+
+ - The `video storyboard` is the same that for the Web Part1 [Video Storyboard](#video-storyboard).
+
+
+### Part 2 Conclusion
+
+We have completed the Part 2 - Native and Electron applications of the Quasar SQLite Database CRUD App Example Tutorial using Quasar Framework and @capacitor-community/sqlite.
+
+We have learned to adapt the `capacitor.config.ts`file and the modify the scripts: section of the `package.json`file for native apps
+
+We learned how to modify the code to adapt to the `safe area`on iOS device.
+
+We learned how to build and run the application for each native platforms.
+
+Enjoy your development from there.
+

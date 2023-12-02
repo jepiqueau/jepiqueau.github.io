@@ -1,7 +1,7 @@
 # Ionic 7 VideoPlayer App Example Tutorial using Angular and capacitor-video-player plugin
 ---
 
-*last updated on November 9, 2023 by Quéau Jean Pierre*
+*last updated on December 2, 2023 by Quéau Jean Pierre*
 
 In this tutorial, we will learn how to create a simple Ionic7/Angular video player application by implementing the capacitor-video-player plugin to display a list of videos with some data and play a selected video in fullscreen mode.
 
@@ -764,6 +764,8 @@ To get the platform, we use the Capacitor Device plugin, so we first need to ins
     npx cap open ios
  ```
 
+ - For `Picture-in-Picture` enabling in Xcode go to `App-Signing Capabilities-Background Modes` and click on `Audio, Airplay, and Picture in Picture.
+
  - The application will look like has below in the iOS Device.
 
     <video width="50%"  controls>
@@ -790,6 +792,13 @@ To get the platform, we use the Capacitor Device plugin, so we first need to ins
     </meta-data>
  ```
  
+ then, add these lines for Picture-in-Picture enabling somewhere in the  `<activity ...>`
+
+ ```xml
+    android:resizeableActivity="true"
+    android:supportsPictureInPicture="true"
+ ```
+
  and 
 
  ```xml

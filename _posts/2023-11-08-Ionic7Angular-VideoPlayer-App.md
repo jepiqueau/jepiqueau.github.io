@@ -1,7 +1,7 @@
 # Ionic 7 VideoPlayer App Example Tutorial using Angular and capacitor-video-player plugin
 ---
 
-*last updated on December 2, 2023 by Quéau Jean Pierre*
+*last updated on December 16, 2023 by Quéau Jean Pierre*
 
 In this tutorial, we will learn how to create a simple Ionic7/Angular video player application by implementing the capacitor-video-player plugin to display a list of videos with some data and play a selected video in fullscreen mode.
 
@@ -26,7 +26,9 @@ The application can be found at [ionic7-angular-videoplayer-app](https://github.
  - [Prepare for Native Applications](#prepare-for-native-applications)
  - [Run the iOS Application](#run-the-ios-application)
  - [Run the Android Application](#run-the-android-application)
+ - [How to Play Local Videos in Android and iOS](#how-to-play-local-videos-in-android-and-ios)
  - [Conclusion](#conclusion)
+
 
 
 
@@ -832,11 +834,435 @@ To get the platform, we use the Capacitor Device plugin, so we first need to ins
       <source src="/videos/Ionic7AngularVideoPlayerAppAndroid.mov" type="video/mp4">
     </video><br>
 
+### How to Play Local Videos in Android and iOS
+
+In this added part of the tutorial, you will learned, how to download a video to a local devices's directory and define the url of this video to be played by the video player.
+
+This will required to update `data.service.ts` to fetch the video, write it to the device and define the local uri of the video.
+
+First, install the `@capacitor-community/filesystem`.
+
+```bash
+npm i @capacitor-community/filesystem
+```
+
+In your favorite Editor, open the file `data.services.ts` and update it accordingly
+
+```ts
+  import { Injectable } from '@angular/core';
+  import { Filesystem, Directory, StatOptions } from '@capacitor/filesystem';
+  import { Capacitor } from '@capacitor/core';
+
+  export interface Video {
+    id: number;
+    device: string;
+    type: string;
+    title: string;
+    url: string;
+    thumb?: string;
+    note: string;
+    subtitle?: string;
+    stlang?: string;
+  }
+
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class DataService {
+    private videos: Video[] = [
+      {
+        id: 1,
+        type: "mp4",
+        device: "all",
+        url: "https://brenopolanski.github.io/html5-video-webvtt-example/MIB2.mp4",
+        note: "Breno Polanski",
+        title: "Test MP4 with Subtitle",
+        subtitle: "https://brenopolanski.github.io/html5-video-webvtt-example/MIB2-subtitles-pt-BR.vtt",
+        stlang: "es"
+      },
+      {
+        id: 2,
+        type: "mp4",
+        device: "all",
+        url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        note: "By Blender Foundation",
+        thumb: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg",
+        title: "Big Buck Bunny"
+      },
+      {
+        id: 3,
+        type: "mp4",
+        device: "all",
+        url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+        note: "By Blender Foundation",
+        thumb: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ElephantsDream.jpg",
+        title: "Elephant Dream"
+      },
+      {
+        id: 4,
+        type: "mp4",
+        device: "all",
+        url: "https://media.bernat.ch/videos/2019-self-hosted-videos-subtitles/progressive.mp4",
+        note: "Blender Animation Studio",
+        thumb: "https://d2pzklc15kok91.cloudfront.net/images/posters/2019-self-hosted-videos-subtitles.3b55d44c736235.jpg",
+        title: "327",
+        subtitle: "https://media.bernat.ch/videos/2019-self-hosted-videos-subtitles.en.vtt",
+        stlang: "en"
+      },
+      {
+        id: 5,
+        type: "aws",
+        device: "all",
+        url: "https://universo-dev-a-m.s3.amazonaws.com/779970/fe774806dbe7ad042c24ce522b7b46594f16c66e",
+        note: "Custom",
+        title: "AWS video test",
+      },
+      {
+        id: 6,
+        type: "hls",
+        device: "all",
+        url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        note: "By Blender Foundation",
+        title: "Big Buck Bunny",
+      },
+      {
+        id: 7,
+        type: "mpd",
+        device: "android",
+        url: "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd",
+        note: "",
+        title: "MPD video test",
+      },
+      {
+        id: 8,
+        type: "webm",
+        device: "android",
+        url: "https://upload.wikimedia.org/wikipedia/commons/f/f1/Sintel_movie_4K.webm",
+        note: "Blender Foundation",
+        thumb: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Sintel_movie_4K.webm/800px--Sintel_movie_4K.webm.jpg?20150505130125",
+        title: "Webm video test",
+      },
+      {
+        id: 9,
+        type: "mp4",
+        device: "android",
+        url: "public/assets/video/Bike720.mp4",
+        note: "",
+        title: "Video from Assets directory",
+      },
+      {
+        id: 10,
+        type: "mp4",
+        device: "android",
+        url: "file:///storage/emulated/0/Documents/Bike720.mp4",
+        note: "",
+        title: "Video on Documents directory",
+      },
+      {
+        id: 11,
+        type: "mp4",
+        device: "android",
+        url: "file:///sdcard/Download/Bike720.mp4",
+        note: "",
+        title: "Video on sdcard Download directory",
+      },
+      {
+        id: 12,
+        type: "mp4",
+        device: "android",
+        url: "file:///sdcard/DCIM/Camera/Bike720.mp4",
+        note: "",
+        title: "Video on sdcard DCIM directory",
+      },
+      {
+        id: 13,
+        type: "mp4",
+        device: "android",
+        url: "file:///sdcard/Documents/KSSV/documents/1/videos/2-12-2023-101222.mp4",
+        note: "",
+        title: "Video on sdcard issue#142 directory",
+      },
+      {
+        id: 14,
+        type: "mp4",
+        device: "ios",
+        url: "public/assets/video/Bike720.mp4",
+        note: "",
+        title: "Video from Assets directory",
+      },
+      {
+        id: 15,
+        type: "mp4",
+        device: "ios",
+        url: "file:///var/mobile/Containers/Data/Application/22A433FD-D82D-4989-8BE6-9FC49DEA20BB/Documents/Bike720.mp4",
+        note: "",
+        title: "Video on App's Documents directory",
+      },
+      {
+        id: 16,
+        type: "mp4",
+        device: "ios",
+        url: "file:///var/mobile/Documents/Bike720.mp4",
+        note: "",
+        title: "Video on Documents directory",
+      },
+      {
+        id: 17,
+        type: "mp4",
+        device: "ios",
+        url: "file:///var/mobile/Downloads/Bike720.mp4",
+        note: "",
+        title: "Video on Download directory",
+      },
+      {
+        id: 18,
+        type: "mp4",
+        device: "ios",
+        url: "file:///var/mobile/Media/DCIM/100APPLE/Bike720.mp4",
+        note: "",
+        title: "Video on Media/DCIM directory",
+      },
+      {
+        id: 19,
+        type: "mp4",
+        device: "all",
+        url: "https://raw.githubusercontent.com/jepiqueau/jepiqueau.github.io/master/videos/Bike720.mp4",
+        note: "Test Bike720",
+        title: "Video from ",
+      },
+
+
+  ];
+
+    constructor() {
+      this.createDeviceVideo();
+    }
+
+
+    public getVideos(platform: string): Video[] {
+      if (platform === 'web') {
+        // Filter videos for Web platform (device: 'all')
+        return this.videos.filter((video) => video.device === 'all');
+      } else if (platform === 'android') {
+        // Filter videos for Android platform (device: 'all' or 'android')
+        return this.videos.filter((video) => video.device === 'all' || video.device === 'android');
+      } else if (platform === 'ios') {
+        // Filter videos for iOS platform (device: 'all' or 'ios')
+        return this.videos.filter((video) => video.device === 'all' || video.device === 'ios');
+      } else {
+        return [];
+      }
+    }
+    public getVideoById(id: number): Video | undefined {
+      return this.videos.find(video => video.id === id);
+    }
+    private async createDeviceVideo(): Promise<void> {
+      const platform = Capacitor.getPlatform();
+      if (['ios', 'android'].includes(platform)) {
+        // file Bike720.mp4
+        const urlBike = "https://raw.githubusercontent.com/jepiqueau/jepiqueau.github.io/master/videos/Bike720.mp4";
+
+        const uri = await this.fetchingVideoToDevice(urlBike, Directory.Documents);
+        console.log(`###### uri : ${uri} ######`)
+        if(uri !== undefined) {
+          await this.copyVideoToOthersDirectories(uri,platform);
+        }
+        // test with a given path
+        const vUri = await this.fetchingVideoToDevice(urlBike, Directory.Documents,"KSSV/documents/1/videos/2-12-2023-101222.mp4" );
+        console.log(`###### vUri : ${vUri} ######`)
+
+      }
+    }
+
+    public async fetchingVideoToDevice(url:string, directory: Directory, path: string = ""): Promise<string | undefined> {
+      const urlName = path.length === 0 ? this.getFileName(url)! : path;
+      const isVideoExists = await this.isFileExists(urlName, directory);
+      if(!isVideoExists) {
+        let response = await fetch(url);
+        let dbBlob = await response.blob();
+        let vBase64 = await this.getBlobAsBase64(dbBlob);
+        await Filesystem.writeFile({ data: vBase64, path: urlName, recursive: true, directory: directory });
+        return (await Filesystem.getUri({
+          path: urlName,
+          directory: Directory.Documents
+        })).uri;
+
+      } else {
+        return (await Filesystem.getUri({
+          path: urlName,
+          directory: Directory.Documents
+        })).uri;
+      }
+
+    }
+    private getBlobAsBase64(blob: Blob): Promise<string> {
+      return new Promise((resolve, _) => {
+        let reader = new FileReader();
+        reader.onload = (event: any) => {
+          resolve(event.target.result);
+        };
+        reader.readAsDataURL(blob);
+      });
+    }
+
+    private async copyVideoToOthersDirectories(uri: string,platform: string): Promise<void> {
+      // Copy a video to others local device's directory
+
+      const uriName = this.getFileName(uri);
+      let toPathDocum: string = "";
+      let toPathDownl: string = "";
+      let toPathDCIM: string = "";
+      if (platform === 'ios') {
+        const containersIndex = uri.indexOf('Containers');
+        const folderPath = containersIndex !== -1 ? uri.substring(0, containersIndex) : uri;
+        toPathDocum = `${folderPath}Documents/${uriName!}`;
+        toPathDownl = `${folderPath}Downloads/${uriName!}`;
+        toPathDCIM = `${folderPath}Media/DCIM/100APPLE/${uriName!}`;
+      } else if (platform === 'android') {
+        const parentPathIndex = uri.indexOf('Documents');
+        const parentPath = parentPathIndex !== -1 ? uri.substring(0, parentPathIndex) : uri;
+        toPathDownl = `${parentPath}Download/${uriName!}`;
+        toPathDCIM = `${parentPath}DCIM/Camera/${uriName!}`;
+      }
+
+      if(toPathDocum.length > 0 && !(await this.isFileExists(toPathDocum))) {
+        const rc1 = await Filesystem.copy ({
+          from: uri,
+          to: toPathDocum
+        });
+      }
+      if(toPathDownl.length > 0 && !(await this.isFileExists(toPathDownl))) {
+        const rc2 = await Filesystem.copy ({
+          from: uri,
+          to: toPathDownl
+        });
+      }
+      if(toPathDCIM.length > 0 && !(await this.isFileExists(toPathDCIM))) {
+        const rc3 = await Filesystem.copy ({
+          from: uri,
+          to: toPathDCIM
+        });
+      }
+    }
+
+    private async isFileExists(path: string, directory?: Directory): Promise<boolean> {
+
+      try {
+        const options: StatOptions = {} as StatOptions;
+        options.path = path;
+        const dir = directory ? directory : "";
+        if (dir.length > 0) options.directory = directory;
+        const info = await Filesystem.stat(options);
+        console.log(`&&&&& info: ${JSON.stringify(info)} &&&&&`)
+        return true;
+      } catch (error) {
+        return false;
+      }
+    }
+    private getFileName(url: string) : string | undefined{
+      const urlObject = new URL(url);
+      return urlObject.pathname.split('/').pop();
+    }
+  }
+  ```
+
+  In this Typescript version, 
+
+   - an `id` parameter was added to the video interface and then the video list was updated accordingly. This will imply a modification the `videoitem` component.
+
+   - a call to a `createDeviceVideo` method to create the local video in the constructor 
+
+   - in this `createDeviceVideo` method, the video `Bike720.mp4` is fetch from the `https://raw.githubusercontent.com/jepiqueau/jepiqueau.github.io/master/videos/` and written to a local device's directory and then copy to several local device's directories for demonstrating the local uri which may be used.
+
+   - example of local uri for :
+
+      - Android : "file:///storage/emulated/0/Documents/Bike720.mp4",
+      - iOS: "file:///var/mobile/Documents/Bike720.mp4".
+
+Now modify the videoitem component
+
+  - open the `videoitem.component.html` file and replace the code with:
+
+    ```ts
+    <ion-item>
+      <ion-avatar slot="start">
+        <img [src]="video!.thumb" />
+      </ion-avatar>
+      <div class="div-item">
+        <ion-label>{{video!.title}}</ion-label>
+        <ion-note>{{video!.note}}</ion-note>
+      </div>
+      <ion-button slot="end" fill="clean" size="large" (click)="play()">
+        <ion-icon name="play-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+    ```
+  
+  - open the `videoitem.component.ts` and update it as:
+
+    ```ts
+      import { CommonModule } from '@angular/common';
+      import { ChangeDetectionStrategy, Component, OnInit, Input } from '@angular/core';
+      import { RouterLink } from '@angular/router';
+      import { IonItem, IonLabel, IonIcon, IonAvatar, IonButton, IonNote } from '@ionic/angular/standalone';
+      import { addIcons } from 'ionicons';
+      import { playCircleOutline } from 'ionicons/icons';
+      import { Video } from '../../services/data.service';
+      import { Router } from '@angular/router';
+
+      @Component({
+        selector: 'app-videoitem',
+        templateUrl: './videoitem.component.html',
+        styleUrls: ['./videoitem.component.scss'],
+        changeDetection: ChangeDetectionStrategy.OnPush,
+        standalone: true,
+        imports: [CommonModule, RouterLink, IonItem, IonLabel, IonIcon,
+                  IonAvatar, IonButton, IonNote],
+      })
+      export class VideoitemComponent implements OnInit {
+        @Input() video?: Video;
+
+        constructor(private route: Router) {
+              addIcons({ playCircleOutline });
+        }
+
+        ngOnInit() {
+          if (!this.video!.hasOwnProperty('thumb')) {
+            this.video!.thumb = 'https://avatars3.githubusercontent.com/u/16580653?v=4';
+          }
+          console.log(`***** in ngOnInit id: ${this.video!.id} video title: ${this.video!.title}`)
+        }
+
+
+        async play() {
+
+          console.log(`***** id: ${this.video!.id}, video title: ${this.video!.title}`)
+          this.route.navigate([`/viewvideo/${this.video!.id}`]);
+        }
+      }
+    ```
+ 
+  Then open the `viewvideo.page.ts` and replace
+
+  ```ts
+      this.video = this.data.getVideo(this.videoIndex);
+  ```
+
+  by 
+
+  ```ts
+      this.video = this.data.getVideoById(this.videoIndex);
+  ```
+
+  Rebuild the code.
 
 ### Conclusion
 
 We have completed the Ionic 7 VideoPlayer App Example Tutorial using Angular framework and the capacitor-video-player plugin.
 
 We learned how to implement the `capacitor-video-player` plugin in the Angular Framework using Ionic UI component toolkit, and Ionic Capacitor which add native functionality.
+
+We learned how to play local device's videos.
 
 Enjoy your development from there.

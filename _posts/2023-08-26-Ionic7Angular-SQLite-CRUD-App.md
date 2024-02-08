@@ -2,7 +2,7 @@
 # Ionic 7 SQLite Database CRUD App Example Tutorial using Angular and @capacitor-community/sqlite
 ---
 
-*last updated on November 6, 2023 by Quéau Jean Pierre*
+*last updated on February 8, 2024 by Quéau Jean Pierre*
 
 In that tutorial we will learned how to create a Ionic7/Angular basic CRUD application and implement the @capacitor-community/sqlite plugin to store the data in a SQLite database.
 
@@ -466,6 +466,24 @@ The application can be found at [Part-2/ionic7-angular-sqlite-app](https://githu
     }
     ``` 
 
+ - open the `app.routes.ts` file and replace the code with
+
+    ```ts
+    import { Routes } from '@angular/router';
+
+    export const routes: Routes = [
+        {
+            path: 'home',
+            loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+        },
+        {
+            path: '',
+            redirectTo: 'home',
+            pathMatch: 'full',
+        },
+    ];
+
+    ```
 ### Users Component Implementation
 
  In that tutorial we use a simple UI interface for CRUD operations through the use of an Angular users component.

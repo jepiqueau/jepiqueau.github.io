@@ -97,7 +97,7 @@ The application can be found at [Part-2/typeorm-ionic7-react-sqlite-app](https:/
 
  - With your favorite Editor, create the following directory structure under the src directory:
 
-   ![alt text](../images/TypeOrmAppDirectoriesTutorial.png)
+    <div align="center"><br><img src="/images/TypeOrmAppDirectoriesTutorial.png" width="300" /></div><br>
 
     The tutorial will utilize two datasources: Author and User.
 
@@ -1317,7 +1317,7 @@ The application can be found at [Part-2/typeorm-ionic7-react-sqlite-app](https:/
  - This will bring you to the `Home` page
 
 
-    <div align="center"><br><img src="/images/Part1-Web-TypeOrm-React-SQLite-Home.png" width="250" /></div><br>
+    <div align="center"><br><img src="/images/Part1-Web-TypeOrm-React-SQLite-Home.png" width="500" /></div><br>
 
  - <p>To open the menu, click on the <span style="font-size: 24px;"><ion-icon name="menu"></ion-icon></span> icon in the top right corner.</p>
 
@@ -1335,7 +1335,7 @@ The application can be found at [Part-2/typeorm-ionic7-react-sqlite-app](https:/
 
 - <p> In the file picker select `Documents/CapacitorSQLite/YOUR_APPLICATION_NAME/YOUR_DATABASE_NAME` and click on `Save`</p>
 
-   <div align="center"><br><img src="/images/Part1-Web-TypeOrm-React-SQLite-SavePicker.png" width="250" /></div><br>
+   <div align="center"><br><img src="/images/Part1-Web-TypeOrm-React-SQLite-SavePicker.png" width="500" /></div><br>
 
 
 ### Generate a New Migration on Author
@@ -1419,7 +1419,7 @@ you will get this message on the terminal
 
  - Then in the `Home` page
 
-    <div align="center"><br><img src="/images/Part1-Web-TypeOrm-React-SQLite-Home-Migration.png" width="250" /></div><br>
+    <div align="center"><br><img src="/images/Part1-Web-TypeOrm-React-SQLite-Home-Migration.png" width="500" /></div><br>
 
   The Migration Refactoring1AuthorPost1708331021699 has been  executed successfully.
 

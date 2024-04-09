@@ -2,7 +2,7 @@
 # Ionic 7 SQLite Database CRUD App Example Tutorial using Angular and @capacitor-community/sqlite
 ---
 
-*last updated on February 8, 2024 by Quéau Jean Pierre*
+*last updated on April 9, 2024 by Quéau Jean Pierre*
 
 In that tutorial we will learned how to create a Ionic7/Angular basic CRUD application and implement the @capacitor-community/sqlite plugin to store the data in a SQLite database.
 
@@ -28,6 +28,8 @@ The application can be found at [Part-2/ionic7-angular-sqlite-app](https://githu
  - [Angular Plugin Implementation](#angular-plugin-implementation)
  - [Users Component Implementation](#users-component-implementation)
  - [Update Config and Package.json Scripts](#update-config-and-packagejson-scripts)
+ - [Update tsconfig.json](#update-tsconfigjson)
+ - [Update angular.json](#update-angularjson)
  - [Run the Web SQLite App](#run-the-web-sqlite-app)
  - [Part 1 Conclusion](#part-1-conclusion)
 
@@ -64,6 +66,9 @@ The application can be found at [Part-2/ionic7-angular-sqlite-app](https://githu
     npm install --save @capacitor/toast
     npm install --save @ionic/pwa-elements
     npm install --save-dev copyfiles
+    npm install --save-dev crypto-browserify
+    npm install --save-dev stream-browserify
+    npm install --save-dev vm-browserify
     ```
 
 ### Create the SQLite Database
@@ -355,6 +360,7 @@ The application can be found at [Part-2/ionic7-angular-sqlite-app](https://githu
             window.addEventListener('DOMContentLoaded', async () => {
                 const jeepEl = document.createElement("jeep-sqlite");
                 document.body.appendChild(jeepEl);
+                await customElements.whenDefined('jeep-sqlite');
                 jeepEl.autoSave = true;
             });
         }
@@ -654,6 +660,40 @@ The application can be found at [Part-2/ionic7-angular-sqlite-app](https://githu
     "copy:sql:wasm": "copyfiles -u 3 node_modules/sql.js/dist/sql-wasm.wasm src/assets",
     ```
 
+### Update tsconfig.json 
+
+ - In `compilerOptions` add the following 
+
+ ```json
+     "paths":{
+      "crypto":["node_modules/crypto-browserify"],
+      "stream":["node_modules/stream-browserify"],
+      "vm":["node_modules/vm-browserify"]
+    }
+```
+
+### Update angular.json
+
+ - In `architect` under `build` and `options` add `allowedCommonJsDependencies`
+
+ ```json
+ {
+    ...
+  "architect": {
+    "build": {
+        ...
+      "options": {
+        "allowedCommonJsDependencies": ["crypto"],
+        ...
+      },
+      ...
+    }
+  }
+ }
+```
+ 
+ - Update all `browserTarget` with `buildTarget`.
+ 
 ### Run the Web SQLite App
 
  - To run the Web app use the below command
